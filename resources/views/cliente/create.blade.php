@@ -152,21 +152,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card card-user">
-                                <div class="avatar-upload">
-                                    <div class="avatar-edit">
-                                        {{ Form::file('avatar', ['id' => 'imageUpload', 'accept' => '.png, .jpg, .jpeg']) }}
-                                        <label for="imageUpload"></label>
-                                    </div>
-                                    <div class="avatar-preview">
-                                        <div id="imagePreview"
-                                             style="background-image: url('../assets/img/default-avatar.png');">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="col-md-4">--}}
+                            {{--<div class="card card-user">--}}
+                                {{--<div class="avatar-upload">--}}
+                                    {{--<div class="avatar-edit">--}}
+                                        {{--{{ Form::file('avatar', ['id' => 'imageUpload', 'accept' => '.png, .jpg, .jpeg']) }}--}}
+                                        {{--<label for="imageUpload"></label>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="avatar-preview">--}}
+                                        {{--<div id="imagePreview"--}}
+                                             {{--style="background-image: url('../assets/img/default-avatar.png');">--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                     {{ Form::close() }}
                 </div>
