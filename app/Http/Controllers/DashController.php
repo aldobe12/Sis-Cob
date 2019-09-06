@@ -13,14 +13,10 @@ class DashController extends Controller
     public function index()
     {
         $dashboard = (object) [
-//            'clientes' => Cliente::where('user_id', Auth::id())->count(),
-//            'prestamos' => Prestamo::count(),
-//            'totalPrestado' => Prestamo::sum('monto'),
-//            'totalInteres' => Pago::sum('interes'),
-            'clientes' => 22,
-            'prestamos' => 22,
-            'totalPrestado' => 22,
-            'totalInteres' => 22,
+            'clientes' => Cliente::where('user_id', Auth::id())->count(),
+            'prestamos' => Prestamo::count(),
+            'totalPrestado' => Prestamo::sum('monto'),
+            'totalInteres' => Pago::sum('interes'),
         ];
 
         return view('dashboard')->with('dashboard', $dashboard);
