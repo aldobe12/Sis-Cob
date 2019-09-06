@@ -18,28 +18,23 @@ class Cliente extends Model
     protected $fillable = [
         'nombre',
         'apellido',
-        'avatar',
         'sexo',
-        'cedula',
+        'dni',
         'fechaN',
-        'celular',
-        'tel',
-        'vivienda',
+        'telefono',
+        'localidad',
         'direccion',
-        'civil',
-        'empleo',
-        'ingreso',
-        'referenciaPersonal',
-        'telR',
+        'estadocivil',
         'user_id',
+        'email',
     ];
 
-    const masculino = 'm';
-    const famenino = 'f';
-    const otro = 'otro';
-    const casap = 'Casa propia';
-    const casa_no_propia = 'Alquilado';
-    const no_casa = 'Otros';
+//    const masculino = 'm';
+//    const famenino = 'f';
+//    const otro = 'otro';
+//    const casap = 'Casa propia';
+//    const casa_no_propia = 'Alquilado';
+//    const no_casa = 'Otros';
     
     public function prestamos()
     {
@@ -54,15 +49,15 @@ class Cliente extends Model
     public static function rules()
     {
         return [
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'sexo' => 'required',
-            'cedula' => 'required',
-            'fechaN' => 'required',
-            'direccion' => 'required',
-            'empleo' => 'required',
-            'ingreso' => 'required',
+//            'nombre' => 'required',
+//            'apellido' => 'required',
+////            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'sexo' => 'required',
+//            'dni' => 'required',
+//            'fechaN' => 'required',
+//            'direccion' => 'required',
+//            'empleo' => 'required',
+//            'ingreso' => 'required',
         ];
     }
 }

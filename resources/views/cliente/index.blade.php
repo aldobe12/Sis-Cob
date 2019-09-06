@@ -34,9 +34,9 @@
                             <div class="card card-stats">
                                 <div class="card-body card-custom">
                                     <a href="{{ route('clientes.edit',$cliente->id) }}">
-                                        <div class="header">
-                                            <img src="{{asset('avatars/'.$cliente->avatar)}}" />
-                                        </div>
+                                        {{--<div class="header">--}}
+                                            {{--<img src="{{asset('avatars/'.$cliente->avatar)}}" />--}}
+                                        {{--</div>--}}
                                         <strong>{{$cliente->nombre}} {{$cliente->apellido}}</strong>
                                     </a>
                                     <div class="footer c-footer">

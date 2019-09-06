@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Filesystem\Filesystem;
+use Schema;
 
 class ClientController extends Controller
 {
@@ -41,35 +42,54 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $success = false;
-        $this->validate($request, Cliente::rules());
+//        $this->validate($request, Cliente::rules());
 
-        DB::beginTransaction();
+//        DB::beginTransaction();
 
         try {
+            $cliente  = new Cliente();
             $campos = $request->all();
-            $campos['user_id'] = Auth::id();
-            $campos['avatar'] = time().'.'.$request->avatar->getClientOriginalExtension();
-            
-            if (Cliente::create($campos)) {
-                ($request->avatar->move(public_path('avatars'), $campos['avatar'])) ? $success = true : $success = false;
-            }
+            $cliente->nombre = $request->get('nombre');
+            $cliente->apellido = $request->get('apellido');
+            $cliente->sexo = $request->get('sexo');
+            $cliente->dni = $request->get('dni');
+            $cliente->fechaN = $request->get('fechaN');
+            $cliente->telefono = $request->get('telefono');
+            $cliente->localidad = $request->get('localidad');
+            $cliente->direccion = $request->get('direccion');
+            $cliente->estadocivil = $request->get('estadocivil');
+            $cliente->email = $request->get('email');
+            $cliente->user_id = Auth::id();
+            $cliente->created_at =  now();
+
+            $cliente->save();
+//            return $cliente;
+//            dd($campos);
+//            $campos['user_id'] = Auth::id();
+//            $campos['created_at'] = now();
+//            $campos['avatar'] = time().'.'.$request->avatar->getClientOriginalExtension();
+//            dd($campos);
+//            if (Cliente::create($campos)) {
+////                ($request->avatar->move(public_path('avatars'), $campos['avatar'])) ? $success = true : $success = false;
+//            }
         } catch (Exception $e) {
 
         }
 
-        if ($success) {
-            DB::commit();
+//        if ($success) {
+////            return
+//            DB::commit();
             $data['message'] = 'Cliente registrado con éxito';
             $data['type'] = 'success';
             return redirect()->route('clientes.index')->with('response', $data);
-        } else {
-            DB::rollback();
-            Cliente::deleteImage($campos['avatar'], 'avatar/');
-            $data['message'] = 'Algo salió mal. Intente luego';
-            $data['type'] = 'error';
-            return redirect()->route('clientes.index')
-                            ->with('response', $data);
-        }
+//        } else {
+//            DB::rollback();
+////            Cliente::deleteImage($campos['avatar'], 'avatar/');
+//            $data['message'] = 'Algo salió mal. Intente luego';
+//            $data['type'] = 'error';
+//            return redirect()->route('clientes.index')
+//                            ->with('response', $data);
+//        }
 
     }
 

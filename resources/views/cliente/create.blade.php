@@ -5,7 +5,9 @@
         <div class="container-fluid">
             <div class="section-image" data-image="../../assets/img/bg5.jpg">
                 <div class="container">
-                    {{ Form::open(array('route' => 'clientes.store', 'files'=>true,'class'=>'form')) }}
+                    {{--{{ Form::open(array('route' => 'clientes.store', 'files'=>true,'class'=>'form')) }}--}}
+                    <form method="post" class="form" action="{{ route('clientes.store') }}">
+                        {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-8 col-sm-6">
                             <div class="card ">
@@ -36,7 +38,7 @@
                                                 {{--{{ Form::label('cedula', 'Cedula') }}--}}
                                                 {{--{{ Form::text('cedula', '', array('class' => 'form-control')) }}--}}
                                                 <label>DNI</label>
-                                                <input name="cedula" id="cedula" type="number" class="form-control"
+                                                <input name="dni" id="dni" type="number" class="form-control"
                                                        required>
                                             </div>
                                         </div>
@@ -61,8 +63,8 @@
                                                 <select name="sexo" class="selectpicker" data-menu-style='dropdown-blue'
                                                         data-style='btn-default btn-outline' required>
                                                     <option value="" selected disabled>Seleccione un sexo</option>
-                                                    <option value="1">Masculino</option>
-                                                    <option value="2">Femenino</option>
+                                                    <option value="m">Masculino</option>
+                                                    <option value="f">Femenino</option>
                                                     {{--<option disabled>Seleccione un sexo</option>--}}
                                                 </select>
                                                 {{--{{ Form::label('sexo', 'Sexo') }}--}}
@@ -82,21 +84,34 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                {{ Form::label('civil', 'ESTADO CIVIL') }}
-                                                {{Form::select(
-                                                    'civil', ['soltero' => 'Soltero', 'casado' => 'Casado', 'union libre' => 'Union Libre', 'divorciado' => 'Divorciado', 'viudo' => 'Viudo'], null, [
-                                                        'class' => 'selectpicker',
-                                                        'data-title' => 'Seleccionar',
-                                                        'data-style' => 'btn-default btn-outline',
-                                                        'data-menu-style' => 'dropdown-blue'
-                                                    ])
-                                                }}
+                                                {{--{{ Form::label('civil', 'ESTADO CIVIL') }}--}}
+                                                {{--{{Form::select(--}}
+                                                    {{--'civil', ['soltero' => 'Soltero', 'casado' => 'Casado', 'union libre' => 'Union Libre', 'divorciado' => 'Divorciado', 'viudo' => 'Viudo'], null, [--}}
+                                                        {{--'class' => 'selectpicker',--}}
+                                                        {{--'data-title' => 'Seleccionar',--}}
+                                                        {{--'data-style' => 'btn-default btn-outline',--}}
+                                                        {{--'data-menu-style' => 'dropdown-blue'--}}
+                                                    {{--])--}}
+                                                {{--}}--}}
+                                                <label>ESTADO CIVIL</label>
+                                                <select name="estadocivil" class="selectpicker" data-menu-style='dropdown-blue'
+                                                        data-style='btn-default btn-outline' required>
+                                                    <option value="" selected disabled>Seleccione un estado</option>
+                                                    <option value="soltero">Soltero/a</option>
+                                                    <option value="casado">Casado/a</option>
+                                                    <option value="divorciado">Divorciado/a</option>
+                                                    <option value="viudo">Viudo/a</option>
+                                                    {{--<option disabled>Seleccione un sexo</option>--}}
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
-                                                {{ Form::label('direccion', 'Direccion') }}
-                                                {{ Form::text('direccion', '', array('class' => 'form-control')) }}
+                                                {{--{{ Form::label('direccion', 'Direccion') }}--}}
+                                                {{--{{ Form::text('direccion', '', array('class' => 'form-control')) }}--}}
+                                                <label>Dirección</label>
+                                                <input name="direccion" id="direccion" type="text" class="form-control"
+                                                >
                                             </div>
                                         </div>
 
@@ -105,7 +120,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Provincia</label>
-                                                <select name="localidad" class="selectpicker" data-menu-style='dropdown-blue'
+                                                <select  class="selectpicker" data-menu-style='dropdown-blue'
                                                         data-style='btn-default btn-outline' required>
                                                     <option value="" selected disabled>Seleccione una Provincia</option>
                                                     <option value="1">Tucuman</option>
@@ -123,8 +138,8 @@
                                                     <option value="" selected disabled>Seleccione una localidad</option>
                                                     <option value="1">San Miguel de Tucuman</option>
                                                     <option value="2">Monteros</option>
-                                                    <option value="2">Concepcion</option>
-                                                    <option value="2">Aguilares</option>
+                                                    <option value="3">Concepcion</option>
+                                                    <option value="4">Aguilares</option>
                                                 </select>
 
 
@@ -135,8 +150,11 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                {{ Form::label('telR', 'Telefono') }}
-                                                {{ Form::text('telR', '', array('class' => 'form-control')) }}
+                                                {{--{{ Form::label('telR', 'Telefono') }}--}}
+                                                {{--{{ Form::text('telR', '', array('class' => 'form-control')) }}--}}
+                                                <label>Telefono</label>
+                                                <input name="telefono" id="telefono" type="number" class="form-control"
+                                                >
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -147,7 +165,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{ Form::submit('Crear Cliente', array('class' => 'btn btn-info btn-fill pull-right')) }}
+                                    <button type="submit" class="btn btn-info btn-fill pull-right"> Crear
+
+                                    </button>
+                                    {{--{{ Form::submit('Crear Cliente', array('class' => 'btn btn-info btn-fill pull-right')) }}--}}
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
