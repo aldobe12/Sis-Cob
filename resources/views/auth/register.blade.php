@@ -50,7 +50,10 @@
                         </div>
                         <div class="card-footer ml-auto mr-auto">
                             <button type="submit" class="btn btn-primary">Registrarse</button>
+
+
                         </div>
+
                     </div>
                 </div>
             </div>

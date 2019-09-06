@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 
-    <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
+    <link rel="icon" type="image/png" href="{{asset('assets/img/542962.png')}}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Créditos BRATVA</title>
@@ -45,7 +45,7 @@
                     </div>
                     <div class="info ">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                            <span>Servio Tulio
+                            <span> {{Auth::user()->name}}
                                 <b class="caret"></b>
                             </span>
                         </a>
@@ -88,13 +88,13 @@
                         <div class="collapse " id="componentsExamples">
                             <ul class="nav">
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="/clientes">
-                                        <span class="sidebar-normal">Lista De clientes</span>
+                                    <a class="nav-link" href="{{ route('clientes.create') }}">
+                                        <span class="sidebar-normal">Nuevo Cliente</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="{{ route('clientes.create') }}">
-                                        <span class="sidebar-normal">Nuevo cliente</span>
+                                    <a class="nav-link" href="/clientes">
+                                        <span class="sidebar-normal">Listado  clientes</span>
                                     </a>
                                 </li>
                             </ul>
@@ -111,13 +111,13 @@
                         <div class="collapse " id="formsExamples">
                             <ul class="nav">
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="/prestamos">
-                                        <span class="sidebar-normal">Lista de prestamos</span>
+                                    <a class="nav-link" href="{{ route('prestamos.create') }}">
+                                        <span class="sidebar-normal">Nuevo Prestamo</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="{{ route('prestamos.create') }}">
-                                        <span class="sidebar-normal">Nuevo Prestamo</span>
+                                    <a class="nav-link" href="/prestamos">
+                                        <span class="sidebar-normal">Listado Prestamos</span>
                                     </a>
                                 </li>
                             </ul>
@@ -130,15 +130,35 @@
                         </a>
                     </li>
 
-                    <li class="nav-item ">
-                        <a class="nav-link" href="/pagos">
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#componentsExamples1">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
-                            <p>Usuarios</p>
+                            <p>
+                                Usuarios
+                                <b class="caret"></b>
+                            </p>
                         </a>
+                        <div class="collapse " id="componentsExamples1">
+                            <ul class="nav">
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="{{ route('usuarios.create') }}">
+                                        <span class="sidebar-normal">Nuevo Usuario</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link" href="/usuarios">
+                                        <span class="sidebar-normal">Listado Usuarios</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
+
+
+
         <div class="main-panel">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg ">
