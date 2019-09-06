@@ -17,6 +17,7 @@ Route::get('/dashboard', 'DashController@index')->middleware('auth');
 
 Route::resource('profile', 'UserController')->middleware('auth');
 Route::resource('clientes', 'ClientController')->middleware('auth');
+Route::resource('usuarios', 'UsuarioController')->middleware('auth');
 Route::resource('prestamos', 'PrestamoController')->middleware('auth');
 Route::resource('pagos', 'PagoController', ['except' => ['create']])->middleware('auth');
 Route::get('pagos/{pago}/create', 'PagoController@create')->name('pagos.create')->middleware('auth');

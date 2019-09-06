@@ -2,7 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
+	<link rel="icon" type="image/png" href="{{asset('assets/img/542962.png')}}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Créditos BRATVA </title>
@@ -47,7 +47,7 @@
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="full-page  section-image" data-color="black" data-image="{{asset('assets/img/full-screen-image-2.jpg')}}" ;>
+        <div class="full-page  section-image" data-color="black" data-image="{{asset('assets/img/sidebar-4.jpg')}}" ;>
             <div class="content">
                 @yield('content')
             </div>
