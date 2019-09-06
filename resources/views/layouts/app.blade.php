@@ -2,7 +2,8 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
+
+    <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Créditos BRATVA</title>
@@ -32,10 +33,10 @@
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="#" class="simple-text logo-mini">
-                        M
+
                     </a>
                     <a href="#" class="simple-text logo-normal">
-                        Créditos BRATVA
+                            {{--NOMBRE DEL DOMINIO--}}
                     </a>
                 </div>
                 <div class="user">
@@ -52,19 +53,16 @@
                             <ul class="nav">
                                 <li>
                                     <a class="profile-dropdown" href="#pablo">
-                                        <span class="sidebar-mini">P</span>
                                         <span class="sidebar-normal">Perfil</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="profile-dropdown" href="#pablo">
-                                        <span class="sidebar-mini">EP</span>
                                         <span class="sidebar-normal">Editar Perfil</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a class="profile-dropdown" href="#pablo">
-                                        <span class="sidebar-mini">C</span>
                                         <span class="sidebar-normal">Configuraci&oacute;n</span>
                                     </a>
                                 </li>
@@ -75,13 +73,13 @@
                 <ul class="nav">
                     <li class="nav-item ">
                         <a class="nav-link" href="/dashboard">
-                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             <p>Inicio</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-                            <i class="nc-icon nc-app"></i>
+                            <i class="fa fa-users" aria-hidden="true""></i>
                             <p>
                                 Clientes
                                 <b class="caret"></b>
@@ -91,13 +89,11 @@
                             <ul class="nav">
                                 <li class="nav-item ">
                                     <a class="nav-link" href="/clientes">
-                                        <span class="sidebar-mini">LC</span>
-                                        <span class="sidebar-normal">Lista de clientes</span>
+                                        <span class="sidebar-normal">Lista De clientes</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link" href="{{ route('clientes.create') }}">
-                                        <span class="sidebar-mini">N</span>
                                         <span class="sidebar-normal">Nuevo cliente</span>
                                     </a>
                                 </li>
@@ -106,7 +102,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#formsExamples">
-                            <i class="nc-icon nc-notes"></i>
+                            <i class="fa fa-money" aria-hidden="true"></i>
                             <p>
                                 Prestamos
                                 <b class="caret"></b>
@@ -116,13 +112,11 @@
                             <ul class="nav">
                                 <li class="nav-item ">
                                     <a class="nav-link" href="/prestamos">
-                                        <span class="sidebar-mini">LP</span>
                                         <span class="sidebar-normal">Lista de prestamos</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
                                     <a class="nav-link" href="{{ route('prestamos.create') }}">
-                                        <span class="sidebar-mini">NP</span>
                                         <span class="sidebar-normal">Nuevo Prestamo</span>
                                     </a>
                                 </li>
@@ -131,8 +125,15 @@
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="/pagos">
-                            <i class="nc-icon nc-paper-2"></i>
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
                             <p>Pagos</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/pagos">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <p>Usuarios</p>
                         </a>
                     </li>
                 </ul>
@@ -149,7 +150,7 @@
                                 <i class="fa fa-navicon visible-on-sidebar-mini"></i>
                             </button>
                         </div>
-                        <a class="navbar-brand" href="#pablo"> Inicio </a>
+                        <a class="navbar-brand" href="#pablo"> Créditos BRATVA </a>
                     </div>
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -158,40 +159,40 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end">
                         <ul class="nav navbar-nav mr-auto">
-                            <form class="navbar-form navbar-left navbar-search-form" role="search">
-                                <div class="input-group">
-                                    <i class="nc-icon nc-zoom-split"></i>
-                                    <input type="text" value="" class="form-control" placeholder="Buscar...">
-                                </div>
-                            </form>
+                            {{--<form class="navbar-form navbar-left navbar-search-form" role="search">--}}
+                                {{--<div class="input-group">--}}
+                                    {{--<i class="nc-icon nc-zoom-split"></i>--}}
+                                    {{--<input type="text" value="" class="form-control" placeholder="Buscar...">--}}
+                                {{--</div>--}}
+                            {{--</form>--}}
                         </ul>
                         <ul class="navbar-nav">
-                            <li class="dropdown nav-item">
-                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                                    <i class="nc-icon nc-bell-55"></i>
-                                    <span class="notification">5</span>
-                                    <span class="d-lg-none">Alerta</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">Alerta 1</a>
-                                    <a class="dropdown-item" href="#">Alerta 2</a>
-                                    <a class="dropdown-item" href="#">Alerta 3</a>
-                                    <a class="dropdown-item" href="#">Alerta 4</a>
-                                    <a class="dropdown-item" href="#">Alerta 5</a>
-                                </ul>
-                            </li>
+                            {{--<li class="dropdown nav-item">--}}
+                                {{--<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">--}}
+                                    {{--<i class="nc-icon nc-bell-55"></i>--}}
+                                    {{--<span class="notification">5</span>--}}
+                                    {{--<span class="d-lg-none">Alerta</span>--}}
+                                {{--</a>--}}
+                                {{--<ul class="dropdown-menu">--}}
+                                    {{--<a class="dropdown-item" href="#">Alerta 1</a>--}}
+                                    {{--<a class="dropdown-item" href="#">Alerta 2</a>--}}
+                                    {{--<a class="dropdown-item" href="#">Alerta 3</a>--}}
+                                    {{--<a class="dropdown-item" href="#">Alerta 4</a>--}}
+                                    {{--<a class="dropdown-item" href="#">Alerta 5</a>--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="nc-icon nc-bullet-list-67"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="nc-icon nc-umbrella-13"></i> Ayuda
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="nc-icon nc-settings-90"></i> Configuraci&oacute;n
-                                    </a>
-                                    <div class="divider"></div>
+                                    {{--<a class="dropdown-item" href="#">--}}
+                                        {{--<i class="nc-icon nc-umbrella-13"></i> Ayuda--}}
+                                    {{--</a>--}}
+                                    {{--<a class="dropdown-item" href="#">--}}
+                                        {{--<i class="nc-icon nc-settings-90"></i> Configuraci&oacute;n--}}
+                                    {{--</a>--}}
+                                    <div class=""></div>
                                     <a href="/logout" class="dropdown-item text-danger">
                                         <i class="nc-icon nc-button-power"></i> Cerrar sesi&oacute;n
                                     </a>
