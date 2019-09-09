@@ -21,6 +21,16 @@
                                 </span>
                             @endif
                         </div>
+                        <div class="form-group">
+                            <label for="name" class=" col-form-label text-md-right">Apellido</label>
+                            <input id="lastname" type="text" class="form-control{{ $errors->has('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ old('lastname') }}" required autofocus>
+
+                            @if ($errors->has('name'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                            @endif
+                        </div>
 
                         <div class="form-group">
                             <label for="email" class=" col-form-label text-md-right">E-Mail</label>
