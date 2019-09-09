@@ -19,13 +19,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nombre</label>
-                                                <input name="nombre" id="nombre" class="form-control" required>
+                                                <input name="name" id="name" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Apellido</label>
-                                                <input name="apellido" id="apellido" class="form-control" required>
+                                                <input name="lastname" id="lastname" class="form-control" required>
                                             </div>
                                         </div>
 

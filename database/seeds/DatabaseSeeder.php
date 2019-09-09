@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RoleTableSeeder::class);
         User::truncate();
         Cliente::truncate();
         Prestamo::truncate();

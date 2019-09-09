@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\User;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $clients = Usuario::paginate(12);
+        $usuarios = User::paginate(12);
         return view('usuario.index')->with('usuarios', $usuarios);
     }
 
@@ -41,16 +42,17 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $success = false;
-        $this->validate($request, Usuario::rules());
+//        $this->validate($request, Usuario::rules());
 
         DB::beginTransaction();
 
         try {
             $campos = $request->all();
+            return $campos;
             $campos['user_id'] = Auth::id();
-            $campos['avatar'] = time().'.'.$request->avatar->getUsuarioOriginalExtension();
+//            $campos['avatar'] = time().'.'.$request->avatar->getUsuarioOriginalExtension();
             
-            if (Usuario::create($campos)) {
+            if (User::create($campos)) {
                 ($request->avatar->move(public_path('avatars'), $campos['avatar'])) ? $success = true : $success = false;
             }
         } catch (Exception $e) {
@@ -64,7 +66,7 @@ class UsuarioController extends Controller
             return redirect()->route('usuarios.index')->with('response', $data);
         } else {
             DB::rollback();
-            Usuario::deleteImage($campos['avatar'], 'avatar/');
+            User::deleteImage($campos['avatar'], 'avatar/');
             $data['message'] = 'Algo salió mal. Intente luego';
             $data['type'] = 'error';
             return redirect()->route('usuarios.index')
