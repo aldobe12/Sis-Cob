@@ -7,7 +7,7 @@
             @csrf
             <div class="card card-login card-hidden">
                 <div class="card-header ">
-                    <h3 class="header text-center">Créditos BRATVA</h3>
+                    <h3 class="header text-center">SysCob</h3>
                 </div>
                 <div class="card-body ">
                     <div class="card-body">

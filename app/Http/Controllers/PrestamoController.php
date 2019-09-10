@@ -47,6 +47,7 @@ class PrestamoController extends Controller
 
         try {
             $campos = $request->all();
+            return $campos;
             $campos['monto_actual'] = $request->monto;
             (Prestamo::create($campos)) ? $success = true : $success = false;
         } catch (Exception $e) {
