@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Redirect;
 use Schema;
 
 class ClientController extends Controller
@@ -19,8 +20,15 @@ class ClientController extends Controller
      */
     public function index()
     {
+
         $clients = Cliente::paginate(12);
-        return view('cliente.index')->with('clientes', $clients);
+        return view('cliente.index2')->with('clientes', $clients);
+    }
+    public function index2()
+    {
+
+        $clients = Cliente::paginate(12);
+        return view('cliente.index2')->with('clientes', $clients);
     }
 
     /**
@@ -81,7 +89,9 @@ class ClientController extends Controller
 //            DB::commit();
             $data['message'] = 'Cliente registrado con éxito';
             $data['type'] = 'success';
-            return redirect()->route('clientes.index')->with('response', $data);
+
+        return Redirect::to('/cliente/list')->with('response', $data);
+//            return redirect('')
 //        } else {
 //            DB::rollback();
 ////            Cliente::deleteImage($campos['avatar'], 'avatar/');
