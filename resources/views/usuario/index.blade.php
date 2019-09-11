@@ -33,11 +33,11 @@
                         <div class="col-lg-3 col-sm-6">
                             <div class="card card-stats">
                                 <div class="card-body card-custom">
-                                    <a href="{{ route('usuarios.edit',$usuarios->id) }}">
+                                    {{--<a href="{{ route('usuarios.edit',$usuarios->id) }}">--}}
                                         <div class="header">
-                                            <img src="{{asset('avatars/'.$usuarios->avatar)}}" />
+                                            {{--<img src="{{asset('avatars/'.$usuarios->avatar)}}" />--}}
                                         </div>
-                                        <strong>{{$usuarios->nombre}} {{$usuarios->apellido}}</strong>
+                                        <strong>{{$usuarios->name}} {{$usuarios->lastname}}</strong>
                                     </a>
                                     <div class="footer c-footer">
                                         <a rel="tooltip" title="ver prestamos" class="btn btn-simple btn-link btn-wd">Prestamos</a>

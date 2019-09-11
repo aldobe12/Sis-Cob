@@ -90,11 +90,20 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3 pl-1">
-                                            <div class="form-group">
+
+                                        <div class="col-md-8">
+                                            {{--<div class="form-group">--}}
+
+                                                {{--<label id="observación">Observación</label>--}}
+                                                {{--<input type="text" name="observacion" id="observacion" class="form-control">--}}
+
+                                            {{--</div>--}}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group ">
 
                                                 <label id="labeloculto">Valor de Cuota</label>
-                                                <h2 class="text-success" name="valorcuota" id="valorcuota"></h2>
+                                               <h2 class=" h2custom text-danger" name="valorcuota" id="valorcuota"></h2>
 
                                             </div>
                                         </div>
@@ -184,4 +193,10 @@
 
         }
     </script>
+    <style>
+       .h2custom {
+            font-weight: 300;
+            margin: 0px 0 15px;
+        }
+    </style>
 @endsection

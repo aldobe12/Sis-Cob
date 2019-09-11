@@ -41,7 +41,7 @@ class PrestamoController extends Controller
     public function store(Request $request)
     {
         $success = false;
-        $this->validate($request, Prestamo::rules());
+//        $this->validate($request, Prestamo::rules());
 
         DB::beginTransaction();
 

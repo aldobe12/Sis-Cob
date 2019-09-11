@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Role;
 use App\User;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
@@ -20,7 +21,11 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = User::paginate(12);
-        return view('usuario.index')->with('usuarios', $usuarios);
+
+        return view('usuario.index2')
+            ->with('usuarios', $usuarios)
+            ;
+
     }
 
     /**
@@ -30,7 +35,9 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view('usuario.create');
+        $roles = Role::all();
+
+        return view('usuario.create')->with('roles', $roles);
     }
 
     /**
@@ -63,7 +70,7 @@ class UsuarioController extends Controller
             DB::commit();
             $data['message'] = 'Usuario registrado con éxito';
             $data['type'] = 'success';
-            return redirect()->route('usuarios.index')->with('response', $data);
+            return redirect()->route('usuarios.index2')->with('response', $data);
         } else {
             DB::rollback();
             User::deleteImage($campos['avatar'], 'avatar/');

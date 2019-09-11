@@ -33,13 +33,13 @@
 
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input name="email" id="email" type="text" class="form-control"
+                                            <input name="email" id="email" type="email" class="form-control"
                                             >
                                         </div>
 
                                     <div class="form-group" class="col-md-6">
                                         <label for="password" class=" col-form-label text-md-right">Contraseña</label>
-                                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                        <input id="password" type="password" minlength="6" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
 
                                         @if ($errors->has('password'))
                                             <span class="invalid-feedback">
@@ -51,8 +51,28 @@
                                         <label for="password-confirm" class=" col-form-label text-md-right">Confirmar Contraseña</label>
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label>Rol</label>
+                                        <select name="rol" class="selectpicker" data-menu-style='dropdown-blue'
+                                                data-style='btn-default btn-outline' required>
+                                            <option value="" selected disabled>Seleccione un rol</option>
 
+                                                @foreach($roles as $rol)
+                                                    <option value="{{$rol->id}}">{{$rol->description}}</option>
+                                                @endforeach
 
+                                            {{--<option disabled>Seleccione un sexo</option>--}}
+                                        </select>
+                                        {{--{{ Form::label('sexo', 'Sexo') }}--}}
+                                        {{--{{Form::select(--}}
+                                        {{--'sexo', ['m' => 'M', 'f'=> 'F', 'otro' => 'Otro'], null, [--}}
+                                        {{--'class' => 'selectpicker', --}}
+                                        {{--'data-title' => 'Seleccionar',--}}
+                                        {{--'data-style' => 'btn-default btn-outline', --}}
+                                        {{--'data-menu-style' => 'dropdown-blue'--}}
+                                        {{--])--}}
+                                        {{--}}--}}
+                                    </div>
                                     <div class="row">
                                         {{--<div class="col-md-4">--}}
                                             {{--<div class="form-group">--}}
