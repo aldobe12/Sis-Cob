@@ -76,31 +76,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4 class="card-title">Información de Codeudor</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row c-ffooter">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                {{ Form::label('codeudor', 'Codeudor') }}
-                                                {{ Form::text('codeudor', Null, array('class' => 'form-control')) }}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                {{ Form::label('cTelefono', 'Teléfono') }}
-                                                {{ Form::text('cTelefono', Null, array('class' => 'form-control')) }}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                {{ Form::label('cDireccion', 'Dirección Codeudor') }}
-                                                {{ Form::text('cDireccion', Null, array('class' => 'form-control')) }}
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {{--<div class="row">--}}
+                                        {{--<div class="col-md-12">--}}
+                                            {{--<h4 class="card-title">Información de Codeudor</h4>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="row c-ffooter">--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--{{ Form::label('codeudor', 'Codeudor') }}--}}
+                                                {{--{{ Form::text('codeudor', Null, array('class' => 'form-control')) }}--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--{{ Form::label('cTelefono', 'Teléfono') }}--}}
+                                                {{--{{ Form::text('cTelefono', Null, array('class' => 'form-control')) }}--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-4">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--{{ Form::label('cDireccion', 'Dirección Codeudor') }}--}}
+                                                {{--{{ Form::text('cDireccion', Null, array('class' => 'form-control')) }}--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                     {{ Form::submit('Crear Prestamo', array('class' => 'btn btn-info btn-fill pull-right')) }}
                                     <div class="clearfix"></div>
                                 </div>

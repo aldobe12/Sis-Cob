@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\FechasCobro;
 use App\Prestamo;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -28,7 +30,8 @@ class PrestamoController extends Controller
      */
     public function create()
     {
-        $clientes = Cliente::selectRaw('id, CONCAT(nombre," ",apellido) as full_name')->pluck('full_name', 'id');
+//        $clientes = Cliente::selectRaw('id, CONCAT(nombre," ",apellido) as full_name')->pluck('full_name', 'id');
+        $clientes = Cliente::all();
         return view('prestamo.create')->with('clientes', $clientes);
     }
 
@@ -47,14 +50,41 @@ class PrestamoController extends Controller
 
         try {
             $campos = $request->all();
-            return $campos;
+//            return $campos;
             $campos['monto_actual'] = $request->monto;
-            (Prestamo::create($campos)) ? $success = true : $success = false;
+            ($pres = Prestamo::create($campos)) ? $success = true : $success = false;
         } catch (Exception $e) {
 
         }
 
         if ($success) {
+
+           $idprestamo = $pres->id;
+            $fecha = $campos['fecha'];
+            $date = DateTime::createFromFormat('d/m/Y', $fecha);
+
+            $date2= $date->format('Y-m-d');
+
+            $last_days = date("Y-m-d", strtotime($date2 . "+7 day"));
+            $fechacuota = $last_days;
+            $cuotas = $campos['cuotas'];
+
+
+             $porcantaje =($request->monto * $request->interes / 100);
+
+            $resultporc = $request->monto + $porcantaje;
+            $valor_cuota = round(($resultporc /$cuotas), 0, PHP_ROUND_HALF_UP);;
+
+
+            for ($i = 1; $i < $cuotas; $i++) {
+                $fechasCobro = new FechasCobro();
+                $fechasCobro->prestamo_id = $idprestamo;
+                $fechasCobro->num_cuota = $i;
+                $fechasCobro->valor_cuota = $valor_cuota;
+                $fechasCobro->fecha = $fechacuota;
+                $fechacuota =date("Y-m-d", strtotime($fechacuota . "+7 day"));
+                $fechasCobro->save();
+            }
             DB::commit();
             $data['message'] = 'Prestamo creado con éxito';
             $data['type'] = 'success';
@@ -115,8 +145,7 @@ class PrestamoController extends Controller
             DB::commit();
             $data['message'] = 'Prestamo actualizado con éxito';
             $data['type'] = 'success';
-            return redirect('prestamos.index')
-                        ->with('response',$data);
+            return redirect()->route('prestamos.index')->with('response', $data);
         } else {
             DB::rollback();
             $data['message'] = 'Algo salió mal. Intente luego';

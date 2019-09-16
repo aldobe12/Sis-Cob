@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+
 	<meta charset="utf-8" />
 
     <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
@@ -27,6 +29,7 @@
 
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <div class="wrapper">
         <div class="sidebar" data-color="blue">
             

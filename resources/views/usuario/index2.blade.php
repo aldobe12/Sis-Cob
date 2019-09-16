@@ -63,7 +63,7 @@
                                         <td>{{ $usuario->id }}</td>
                                         <td>{{ $usuario->lastname }}</td>
                                         <td>{{ $usuario->name}}</td>
-                                        <td>{{ $usuario->roles->first()->description}}</td>
+                                        <td>{{ $usuario->roles->first()->description ?? 'Sin rol'}}</td>
                                         {{--<td>@money($usuario->monto.'00', 'USD')</td>--}}
                                         <td>{{ $usuario->email }}</td>
                                         <td>{{ $usuario->created_at }}</td>
