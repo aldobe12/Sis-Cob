@@ -20,9 +20,11 @@ Route::resource('clientes', 'ClientController')->middleware('auth');
 Route::resource('usuarios', 'UsuarioController')->middleware('auth');
 Route::resource('prestamos', 'PrestamoController')->middleware('auth');
 Route::resource('pagos', 'PagoController', ['except' => ['create']])->middleware('auth');
+//Route::resource('cobros', 'CobrosController', ['except' => ['create']])->middleware('auth');
 Route::get('/cliente/list', 'ClientController@index2')->middleware('auth');
 Route::get('/usuario/list', 'UsuarioController@index2')->middleware('auth');
 Route::get('pagos/{pago}/create', 'PagoController@create')->name('pagos.create')->middleware('auth');
+Route::get('/cobros/index/{desde?}/{hasta?}', 'CobrosController@index');
 
 Route::get('/logout', function()
 	{

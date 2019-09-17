@@ -36,6 +36,12 @@ class Prestamo extends Model
     {
         return $this->belongsTo(Cliente::class);
     }
+    public function fechascobro(){
+        return $this->belongsTo('App\FechasCobro', 'id', 'prestamo_id');
+    }
+    public function cliente2(){
+        return $this->belongsTo('App\Cliente', 'cliente_id', 'id');
+    }
 
     public static function rules()
     {

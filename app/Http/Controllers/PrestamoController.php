@@ -18,7 +18,7 @@ class PrestamoController extends Controller
      */
     public function index()
     {
-        $prestamos = Prestamo::paginate();
+        $prestamos = Prestamo::with('Fechascobro')->get();
 
         return view('prestamo.index')->with('prestamos', $prestamos);
     }
@@ -76,12 +76,13 @@ class PrestamoController extends Controller
             $valor_cuota = round(($resultporc /$cuotas), 0, PHP_ROUND_HALF_UP);;
 
 
-            for ($i = 1; $i < $cuotas; $i++) {
+            for ($i = 1; $i <=$cuotas; $i++) {
                 $fechasCobro = new FechasCobro();
                 $fechasCobro->prestamo_id = $idprestamo;
                 $fechasCobro->num_cuota = $i;
                 $fechasCobro->valor_cuota = $valor_cuota;
                 $fechasCobro->fecha = $fechacuota;
+                $fechasCobro->estadocuota_id = 1;
                 $fechacuota =date("Y-m-d", strtotime($fechacuota . "+7 day"));
                 $fechasCobro->save();
             }
@@ -105,8 +106,14 @@ class PrestamoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Prestamo $prestamo)
+
     {
-        return view('prestamo.show')->with('prestamo', $prestamo);
+        $idprestamo = $prestamo->id;
+        $fechacobro = FechasCobro::with('Pagos')->where('prestamo_id',$idprestamo)->get();
+        return view('prestamo.show')
+            ->with('prestamo', $prestamo)
+            ->with('fechacobro', $fechacobro)
+            ;
     }
 
     /**

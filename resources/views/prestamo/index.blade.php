@@ -43,12 +43,13 @@
                         </div>
                         <table id="bootstrap-table" class="table">
                             <thead>
-                                <th data-field="id" class="text-center">ID</th>
+                                {{--<th data-field="id" class="text-center">ID</th>--}}
                                 <th data-field="cliente" data-sortable="true">Cliente</th>
-                                <th data-field="amortizacion" data-sortable="true">Amortización</th>
-                                <th data-field="capital" data-sortable="true">Capital</th>
+                                {{--<th data-field="amortizacion" data-sortable="true">Amortización</th>--}}
+                                <th data-field="montoprestado" data-sortable="true">Monto Prestado</th>
+                                <th data-field="montodevolver" data-sortable="true">Monto a devolver</th>
                                 <th data-field="interes" data-sortable="true">Interés</th>
-                                <th data-field="periodos" data-sortable="true">Períodos</th>
+                                <th data-field="periodos" data-sortable="true">Cuotas</th>
                                 <th data-field="pagos" data-sortable="true">Pagos</th>
                                 <th data-field="ppago" data-sortable="true">Próximo Pago</th>
                                 <th data-field="activo" data-sortable="true">Activo</th>
@@ -57,10 +58,16 @@
                             <tbody>
                                 @foreach($prestamos as $prestamo)
                                    <tr onclick="click('{{ $prestamo->id }}')">
-                                        <td>{{ $prestamo->id }}</td>
+{{--                                        <td>{{ $prestamo->id }}</td>--}}
                                         <td>{{ $prestamo->cliente->nombre }} {{ $prestamo->cliente->apellido }}</td>
-                                        <td>{{ $prestamo->amortizacion }}</td>
-                                        <td>@money($prestamo->monto.'00', 'USD')</td>
+{{--                                        <td>{{ $prestamo->amortizacion }}</td>--}}
+                                        <td>${{ $prestamo->monto }}</td>
+                                       <?php
+                                       $cantcuota= $prestamo->cuotas;
+                                       $valcuota= $prestamo->fechascobro->valor_cuota;
+                                       $montodevolver = $valcuota * $cantcuota;
+                                       ?>
+                                        <td>${{$montodevolver}}</td>
                                         <td>{{ $prestamo->interes }} %</td>
                                         <td>{{ $prestamo->cuotas }}</td>
                                         <td>{{ $prestamo->metodo_pago }}</td>

@@ -132,6 +132,12 @@
                             <p>Pagos</p>
                         </a>
                     </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/cobros">
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            <p>Cobros</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#componentsExamples1">

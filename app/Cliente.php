@@ -35,7 +35,7 @@ class Cliente extends Model
 //    const casap = 'Casa propia';
 //    const casa_no_propia = 'Alquilado';
 //    const no_casa = 'Otros';
-    
+
     public function prestamos()
     {
         return $this->hasMany(Prestamo::class);
@@ -44,6 +44,12 @@ class Cliente extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function localidades()
+    {
+        return $this->belongsTo('App\Localidad', 'localidad', 'id');
+//        return $this->belongsTo(Localidad::class);
     }
 
     public static function rules()

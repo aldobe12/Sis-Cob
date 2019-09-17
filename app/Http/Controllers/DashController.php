@@ -16,7 +16,8 @@ class DashController extends Controller
             'clientes' => Cliente::where('user_id', Auth::id())->count(),
             'prestamos' => Prestamo::count(),
             'totalPrestado' => Prestamo::sum('monto'),
-            'totalInteres' => Pago::sum('interes'),
+//            'totalInteres' => Pago::sum('interes'),
+            'totalInteres' =>0,
         ];
 
         return view('dashboard')->with('dashboard', $dashboard);

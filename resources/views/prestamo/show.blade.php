@@ -111,28 +111,54 @@
                     <div class="card-body table-full-width table-responsive">
                         <table class="table table-hover">
                             <thead>
-                                <th>Cuota</th>
+                                <th>Num cuota</th>
                                 <th>Fecha</th>
-                                <th>Capital</th>
-                                <th>Interés</th>
-                                <th>Mora</th>
-                                <th>Capital restante</th>
-                                <th></th>
+                                <th>Monto</th>
+                                <th>Pago</th>
+                                <th>Deuda</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
                             </thead>
                             <tbody>
-                                @foreach($prestamo->pagos as $pago)
+                                @foreach($fechacobro as $fechaco)
                                    <tr onclick="click('{{ $prestamo->id }}')">
-                                        <td>{{ $pago->cuota }}</td>
-                                        <td>{{ $pago->fecha_pago }}</td>
-                                        <td>@money($pago->capital.'00', 'USD')</td>
-                                        <td>@money($pago->interes.'00', 'USD')</td>
-                                        <td>@money($pago->mora.'00', 'USD')</td>
-                                        <td>@money($prestamo->monto - $pago->monto.'00', 'USD')</td>
-                                        <td>
-                                            {!! Form::open(['method' => 'DELETE','route' => ['pagos.destroy', $pago->id],'style'=>'display:inline']) !!}
-                                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                            {!! Form::close() !!}
-                                        </td>
+                                        <td>{{ $fechaco->num_cuota }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($fechaco->fecha)->format('d/m/Y')}}</td>
+                                        <td>${{$fechaco->valor_cuota ?? '0'}}</td>
+                                       @if($fechaco->Pagos)
+                                           <td>${{$fechaco->Pagos->monto}}</td>
+                                           @else
+                                           <td>$0</td>
+                                           @endif
+                                       @if($fechaco->Pagos)
+                                           <td>${{$fechaco->Pagos->deuda}}</td>
+                                       @else
+                                           <td>$0</td>
+                                       @endif
+
+                                       {{--<td>0</td>--}}
+                                       {{--<td>0</td>--}}
+                                       @if($fechaco->estadocuota_id != 1)
+                                        <td>{{$fechaco->Estados->descripcion}}</td>
+                                       @else
+                                           <td style="color: #ff0000;">{{$fechaco->Estados->descripcion}}</td>
+                                           @endif
+                                        {{--<td>--}}
+                                            {{--{!! Form::open(['method' => 'DELETE','route' => ['pagos.destroy', $fechaco->id],'style'=>'display:inline']) !!}--}}
+                                            {{--{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
+                                            {{--{!! Form::close() !!}--}}
+                                        {{--</td>--}}
+                                       <td>
+                                       @if($fechaco->estadocuota_id == 1)
+
+
+
+                                           <button href="{{ route('pagos.create', $fechaco->id) }}" class="btn btn-success btn-sm">Pagar</button>
+
+
+                                       @endif
+                                       <button href="{{ route('pagos.create', $fechaco->id) }}" class="btn btn-info  btn-sm"><i class="fa fa-eye"></i></button>
+                                       </td>
                                     </tr>
                                 @endforeach
                             </tbody>

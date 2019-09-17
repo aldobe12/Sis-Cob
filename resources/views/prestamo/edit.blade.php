@@ -33,7 +33,7 @@
                                                         'data-style' => 'btn-default btn-outline', 
                                                         'data-menu-style' => 'dropdown-blue'
                                                     ])
-                                                }}
+                                                }}f
                                             </div>
                                         </div>
                                         <div class="col-md-4 pl-1">
