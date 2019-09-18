@@ -124,9 +124,13 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="col-md-12">
-                            <a id="btnImprimir" title="Imprimir cobros" class="btn btn-success btn-block" href="#">Imprimir</a>
-                        </div>
+                        @if(count($cobros) >0)
+                            <div class="col-md-12">
+                                <a id="btnImprimir" title="Imprimir cobros" class="btn btn-success btn-block" href="#">Imprimir</a>
+                            </div>
+
+                        @endif
+
                     </div>
                 </div>
 
@@ -145,6 +149,14 @@
         $().ready(function () {
 
             $table.bootstrapTable({
+                formatNoMatches: function () {
+                    return '';
+                },
+                exportOptions: {
+                    fileName: function () {
+                        return 'exportName'
+                    }
+                },
                 toolbar: ".toolbar",
                 clickToSelect: true,
                 search: true,
@@ -162,12 +174,16 @@
                 formatRecordsPerPage: function (pageNumber) {
                     return pageNumber + " rows visible";
                 },
+                language: {
+                    zeroRecords: "No se registran datos"
+                },
                 icons: {
                     refresh: 'fa fa-refresh',
                     toggle: 'fa fa-th-list',
                     columns: 'fa fa-columns',
                     detailOpen: 'fa fa-plus-circle',
-                    detailClose: 'fa fa-minus-circle'
+                    detailClose: 'fa fa-minus-circle',
+                    export: 'glyphicon-export icon-share'
                 }
             });
 
@@ -204,7 +220,22 @@
 
             fechad= $('#inputFechaDesde').val();
             fechah= $('#inputFechaHasta').val();
-            location.href = "/cobros/index/" + fechad + '/' + fechah;
+            if(fechad !== '' && fechah !== ''){
+                location.href = "/cobros/index/" + fechad + '/' + fechah;
+            }
+            else if(fechad === '' && fechah !== ''){
+                // toastr.info('SE AGREGO EXITOSAMENTE LA GESTION A LA SOLICITUD');
+                alert('Ingrese Fecha desde');
+            }
+            else if(fechah === '' && fechad !== ''){
+                alert('Ingrese Fecha hasta');
+            }
+            else{
+                alert('Ingresar fecha desde y hasta');
+            }
+
+
+
         }
 
     </script>
@@ -216,5 +247,6 @@
         .centro {
             text-align: center;
         }
+
     </style>
 @endsection

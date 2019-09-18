@@ -12,7 +12,7 @@
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-
+    <script src="extensions/export/bootstrap-table-export.js"></script>
 
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -32,7 +32,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <div class="wrapper">
         <div class="sidebar" data-color="blue">
-            
+
             <div class="sidebar-wrapper">
                 <div class="logo">
                     <a href="#" class="simple-text logo-mini">
