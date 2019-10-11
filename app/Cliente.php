@@ -66,4 +66,8 @@ class Cliente extends Model
 //            'ingreso' => 'required',
         ];
     }
+
+    public function organizaciones(){
+        return $this->belongsTo('App\Organizacion','organizacion_id','id');
+    }
 }

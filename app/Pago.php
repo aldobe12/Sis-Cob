@@ -23,9 +23,13 @@ class Pago extends Model
         'nota',
     ];
 
-    public function prestamo()
+    public function FechaCobro()
     {
-        return $this->belongsTo(Prestamo::class);
+        return $this->belongsTo(FechasCobro::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public static function rules()

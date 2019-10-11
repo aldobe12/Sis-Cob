@@ -1,4 +1,4 @@
-@media (min-width: 992px){
+@media (min-width: 400px){
     .navbar-form {
         margin-top: 21px;
         margin-bottom: 21px;
@@ -385,7 +385,7 @@
 
 //overwrite table responsive for 768px screens
 
-@media (min-width: 992px){
+@media (min-width: 400px){
     .table-full-width{
         margin-left: -15px;
         margin-right: -15px;
@@ -401,7 +401,7 @@
 
 }
 
-@media (max-width: 991px){
+@media (max-width: 400px){
     .table-responsive {
         width: 100%;
         margin-bottom: 15px;

@@ -96,7 +96,7 @@
                     <div class="col-md-3"></div>
                     <div class="col-md-9">
                         <div class="card-body">
-                            <a href="{{ route('pagos.create') }}" class="btn btn-success btn-wd">Agregar pago</a>
+{{--                            <a href="{{ route('pagos.create') }}" class="btn btn-success btn-wd">Agregar pago</a>--}}
                             <a href="{{ route('prestamos.edit', $prestamo->id) }}" class="btn btn-simple btn-link btn-wd">Editar</a>
                             <button class="btn btn-simple btn-link btn-wd">Cancelar Prestamo</button>
                             <a href="#amortizacion" class="btn btn-simple btn-link btn-wd">Amortización</a>

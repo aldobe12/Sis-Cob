@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\FechasCobro;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class CobrosController extends Controller
     public function index($fechaDesde = null, $fechaHasta = null)
 
     {
-//        return $fechaDesde;
+
         if ($fechaDesde == null AND $fechaHasta == null) {
 
             $fechaDesde = date('Y-m-d');
@@ -39,20 +40,30 @@ class CobrosController extends Controller
             $fechaDesde = $fechaDesde;
             $fechaHasta = $fechaHasta;
         }
-//return $fechaDesde;
-        $cobros = FechasCobro::with(['Prestamo2', 'Pagos'])
-            ->whereBetween('fecha', [$fechaDesde, $fechaHasta])
-            ->orderBy('fecha', 'ASC')->get();
-//        return $cobros;
-//        foreach ($cobros as $co) {
-//            if ($co->prestamo2) {
-//                return $co->Prestamo2->cliente2->localidades;
-//          ret  }
-//
-//        }
+
+        $usuarios = User::GetUsuarios();
+        $cobros = FechasCobro::whereHas('Prestamo2', function ($query) use ($usuarios) {
+            $query->whereIn('user_id' , $usuarios);
+        })->whereBetween('fecha', [$fechaDesde, $fechaHasta])
+            ->orderBy('fecha', 'ASC')
+            ->with('Pagos')
+            ->get();
+
+
+        $deudaTotal = 0;
+        foreach ($cobros as $cobro){
+            if($cobro->estadocuota_id == 1){
+                $deudaTotal = $deudaTotal + $cobro->valor_cuota;
+            }
+
+        }
+
+
+
 
         return view('cobro.index')
             ->with('cobros', $cobros)
+            ->with('deudaTotal', $deudaTotal)
             ->with('fechaDesde', $fechaDesde)
             ->with('fechaHasta', $fechaHasta);
     }

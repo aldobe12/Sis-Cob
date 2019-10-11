@@ -35,7 +35,7 @@
                     <div class="header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h4 class="title">Cobros - Desde: {{$fecha1}} - Hasta: {{$fecha2}}</h4>
+                                <h4 class="title">Listar Cobros - Desde: {{$fecha1}} - Hasta: {{$fecha2}}</h4>
 
                             </div>
 
@@ -76,7 +76,7 @@
                         </div>
                         <table id="bootstrap-table" class="table">
                             <thead>
-                            <th data-field="id" class="text-center">ID</th>
+{{--                            <th data-field="id" class="text-center">ID</th>--}}
                             <th data-field="cliente" data-sortable="true">Cliente</th>
                             <th data-field="fecha" data-sortable="true">Feha Cobro</th>
                             <th data-field="amortizacion" data-sortable="true">Dirección</th>
@@ -85,12 +85,13 @@
                             <th data-field="periodos" data-sortable="true">Monto Cuota</th>
                             <th data-field="pagos" data-sortable="true">Saldo</th>
                             <th data-field="ppago" data-sortable="true">Atraso</th>
+                            <th data-field="estado" data-sortable="true">Estado</th>
                             <th data-field="actions" class="td-actions">Opción</th>
                             </thead>
                             <tbody>
                             @foreach($cobros as $cobro)
-                                <tr onclick="click('{{ $cobro->id }}')">
-                                    <td>{{ $cobro->id }}</td>
+                                <tr onclick="click('{{ $cobro->prestamo_id }}')">
+{{--                                    <td>{{ $cobro->id }}</td>--}}
                                     <td>{{ $cobro->Prestamo2->cliente2->apellido }}
                                         ,{{ $cobro->Prestamo2->cliente2->nombre }}</td>
                                     <td>{{ \Carbon\Carbon::parse($cobro->fecha)->format('d/m/Y') }}</td>
@@ -113,10 +114,11 @@
                                     ?>
                                     <td>${{ $saldo}}</td>
                                     <td>${{ $cobro->Pagos != null ? $cobro->Pagos->sum('atraso') : 0 }}</td>
+                                    <td class="red">{{ $cobro->Estados->descripcion}}</td>
                                     {{--<td>{{ $cobro->estado }}</td>--}}
                                     <td>
                                         <a title="Ver" class="btn btn-link btn-info table-action view"
-                                           href="{{ route('prestamos.show', $cobro->id) }}">
+                                           href="{{ route('prestamos.show', $cobro->prestamo_id) }}">
                                             <i class="fa fa-image"></i>
                                         </a>
                                     </td>
@@ -126,7 +128,13 @@
                         </table>
                         @if(count($cobros) >0)
                             <div class="col-md-12">
-                                <a id="btnImprimir" title="Imprimir cobros" class="btn btn-success btn-block" href="#">Imprimir</a>
+                                <div class="container">
+                                    <h5>Total a cobras:</h5><h2>${{$deudaTotal}}</h2>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12">
+                                <a id="btnImprimir" title="Imprimir cobros" class="btn btn-secondary btn-block" href="#">Imprimir</a>
                             </div>
 
                         @endif
@@ -247,6 +255,10 @@
         .centro {
             text-align: center;
         }
+        .red{
+            style: color #EE2D20;
+        }
+
 
     </style>
 @endsection

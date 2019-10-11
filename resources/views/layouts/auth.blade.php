@@ -28,7 +28,7 @@
 <body>
     <div class="wrapper wrapper-full-page">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute">
+        <nav class="navbar navbar-expand navbar-transparent navbar-absolute ">
             <div class="container">
                 <div class="collapse navbar-collapse justify-content-end" id="navbar">
                     <ul class="navbar-nav">

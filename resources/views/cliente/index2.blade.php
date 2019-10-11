@@ -43,7 +43,7 @@
                         </div>
                         <table id="bootstrap-table" class="table">
                             <thead>
-                                <th data-field="id" class="text-center">ID</th>
+{{--                                <th data-field="id" class="text-center">ID</th>--}}
                                 <th data-field="apellido" data-sortable="true">Apellido</th>
                                 <th data-field="nombre" data-sortable="true">Nombre</th>
                                 <th data-field="dni" data-sortable="true">DNI</th>
@@ -57,20 +57,23 @@
                             <tbody>
                                 @foreach($clientes as $cliente)
                                    <tr onclick="click('{{ $cliente->id }}')">
-                                        <td>{{ $cliente->id }}</td>
-                                        <td>{{ $cliente->nombre }}</td>
+{{--                                        <td>{{ $cliente->id }}</td>--}}
+                                        <td class="text-center">{{ $cliente->nombre }}</td>
                                         <td>{{ $cliente->apellido}}</td>
                                         {{--<td>@money($cliente->monto.'00', 'USD')</td>--}}
                                         <td>{{ $cliente->dni }}</td>
                                         <td>{{ $cliente->direccion }}</td>
-                                        <td>{{ $cliente->localidad }}</td>
-                                        <td>Tucuman</td>
+                                        <td>{{ $cliente->localidades->descripcion }}</td>
+                                        <td>{{$cliente->localidades->provincias->descripcion}}</td>
                                         <td>{{ $cliente->telefono }}</td>
                                         <td>{{ $cliente->email }}</td>
                                         {{--<td>{{ $cliente->estado }}</td>--}}
                                         <td>
-                                            <a title="Ver" class="btn btn-link btn-info table-action view" href="{{ route('prestamos.show', $cliente->id) }}">
+                                            <a title="Ver" class="btn btn-link btn-info table-action view" href="{{ route('clientes.show', $cliente->id) }}">
                                                 <i class="fa fa-image"></i>
+                                            </a>
+                                            <a title="Editar cliente" class="btn btn-link btn-info table-action view" href="{{ route('clientes.edit', $cliente->id) }}">
+                                                <i class="fa fa-pencil-square-o"></i>
                                             </a>
                                         </td>
                                     </tr>
@@ -96,9 +99,10 @@
             showColumns: true,
             pagination: true,
             searchAlign: 'left',
-            pageSize: 8,
+            pageSize: 10,
             clickToSelect: false,
             pageList: [8, 10, 25, 50, 100],
+            // pagingType: 'simple', // "simple" option for 'Previous' and 'Next' buttons only
 
             formatShowingRows: function(pageFrom, pageTo, totalRows) {
                 //do nothing here, we don't want to show the text "showing x of y from..."

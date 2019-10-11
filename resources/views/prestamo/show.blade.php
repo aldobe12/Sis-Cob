@@ -1,53 +1,68 @@
 @extends('layouts.app')
 @section('content')
+{{--    @include('pago.modal_pago')--}}
 
-@if ($message = Session::get('success'))
+{{--    @if ($message = Session::get('success'))--}}
+{{--        <script>--}}
+{{--            $.notify({--}}
+{{--                icon: 'fa fa-user',--}}
+{{--                message: '{{$message}}'--}}
+
+{{--            }, {--}}
+{{--                type: 'success',--}}
+{{--                timer: '3000'--}}
+{{--            });--}}
+{{--        </script>--}}
+{{--    @endif--}}
+@if ($data = Session::get('response'))
     <script>
         $.notify({
             icon: 'fa fa-user',
-            message: '{{$message}}'
+            message: '{{$data["message"]}}'
 
         },{
-            type: 'success',
+            type: '{{$data["type"]}}',
             timer: '3000'
         });
     </script>
 @endif
 
-<ul class="breadcrumb">
-    <div class="container-fluid">
-        <li class="breadcrumb-item">
-            <a href="/dashboard">Inicio</a>
-        </li>
-        <li class="breadcrumb-item">
-            <a href="/prestamos">Prestamos</a>
-        </li>
-        <li class="breadcrumb-item active"> Detalles</li>
-    </div>
-</ul>
-<div class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card card-user c-user">
-                    <div class="avatar-view">
-                        <div class="avatar-preview">
-                            <div id="imagePreview" style="background-image: url('{{asset('avatars/'.$prestamo->cliente->avatar)}}');"></div>
+    <ul class="breadcrumb">
+        <div class="container-fluid">
+            <li class="breadcrumb-item">
+                <a href="/dashboard">Inicio</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/prestamos">Prestamos</a>
+            </li>
+            <li class="breadcrumb-item active"> Detalles</li>
+        </div>
+    </ul>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-user c-user">
+                        <div class="avatar-view">
+                            <div class="avatar-preview">
+                                <div id="imagePreview"
+                                     style="background-image: url('{{asset('avatars/'.$prestamo->cliente->avatar)}}');"></div>
+                            </div>
+                            <h3>{{$prestamo->cliente->nombre}} {{$prestamo->cliente->apellido}}</h3>
+                            <span>{{$prestamo->cliente->tel}}</span>
                         </div>
-                        <h3>{{$prestamo->cliente->nombre}} {{$prestamo->cliente->apellido}}</h3>
-                        <span>{{$prestamo->cliente->tel}}</span>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="table-full-width">
-                            <table class="table">
-                                <tbody>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="table-full-width">
+                                <table class="table">
+                                    <tbody>
                                     <tr>
-                                        <td>Capital Actual</td>
-                                        <td>@money($prestamo->monto_actual.'00', 'USD')</td>
+                                        <td>Monto prestado</td>
+                                        {{--                                        <td class="textNegritas">@money($prestamo->monto.'00', 'USD')</td>--}}
+                                        <td class="textNegritas">${{$prestamo->monto}}</td>
                                     </tr>
                                     <tr>
                                         <td>Fecha</td>
@@ -61,56 +76,83 @@
                                         <td>Cuotas</td>
                                         <td>{{$prestamo->cuotas}}</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="table-full-width">
-                            <table class="table">
-                                <tbody>
+                                    <?php
+                                    $idfechacobro = App\FechasCobro::where('prestamo_id',$prestamo->id)->pluck('id');
+                                    $montoatraso =  App\Pago::whereIn('fecha_cobro_id',$idfechacobro)->sum('atraso');
+
+                                    ?>
                                     <tr>
-                                        <td>Capital Inicial</td>
-                                        <td>@money($prestamo->monto.'00', 'USD')</td>
+                                        <td>Atraso</td>
+                                        <td>${{$montoatraso}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generado por</td>
+                                        <td>{{$prestamo->user->lastname}}, {{$prestamo->user->name}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-full-width">
+                                <table class="table">
+                                    <tbody>
+                                    <?php
+                                    $cantcuota = $prestamo->cuotas;
+                                    $valcuota = $prestamo->fechascobro->valor_cuota;
+                                    $montodevolver = $valcuota * $cantcuota;
+                                    ?>
+                                    <tr>
+                                        <td>Monto a devolver</td>
+                                        <td>@money($montodevolver.'00', 'USD')</td>
                                     </tr>
                                     <tr>
                                         <td>Interés</td>
-                                        <td>{{$prestamo->interes}}</td>
+                                        <td>{{$prestamo->interes}}%</td>
                                     </tr>
                                     <tr>
                                         <td>Modalidad Pago</td>
                                         <td>{{$prestamo->metodo_pago}}</td>
                                     </tr>
+                                    <?php
+                                    //                                $cantcuota= $prestamo->cuotas;
+                                    $valcuota = $prestamo->fechascobro->valor_cuota;
+                                    $montodevolver = $valcuota;
+                                    ?>
                                     <tr>
-                                        <td>Próximo Pago</td>
-                                        <td>{{$prestamo->monto}}</td>
+                                        <td>Monto de cuota</td>
+                                        <td>@money($valcuota.'00', 'USD')</td>
                                     </tr>
-                                </tbody>
-                            </table>
+                                    {{--                                <tr>--}}
+                                    {{--                                    <td>Ganancia</td>--}}
+                                    {{--                                    <td>@money($valcuota.'00', 'USD')</td>--}}
+                                    {{--                                </tr>--}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-9">
-                        <div class="card-body">
-                            <a href="{{ route('pagos.create', $prestamo->id) }}" class="btn btn-success btn-wd">Agregar pago</a>
-                            <a href="{{ route('prestamos.edit', $prestamo->id) }}" class="btn btn-simple btn-link btn-wd">Editar</a>
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['prestamos.destroy', $prestamo->id], 'class' => 'btn btn-simple btn-link btn-wd' ]) !!}
-                            {!! Form::submit('Cancelar Prestamo', ['class' => 'btn btn-simple btn-link btn-wd red']) !!}
-                            {!! Form::close() !!}
-                            <a href="#amortizacion" class="btn btn-simple btn-link btn-wd">Amortización</a>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                {{--                            <a href="{{ route('pagos.create', $prestamo->id) }}" class="btn btn-success btn-wd">Agregar pago</a>--}}
+                                <a href="{{ route('prestamos.edit', $prestamo->id) }}" class="btn btn-success btn-wd">Editar</a>
+                                {!! Form::open(['method' => 'DELETE', 'route' => ['prestamos.destroy', $prestamo->id], 'class' => 'btn btn-simple btn-link btn-wd' ]) !!}
+                                {!! Form::submit('Cancelar Prestamo', ['class' => 'btn btn-simple btn-link btn-wd red']) !!}
+                                {!! Form::close() !!}
+                                {{--                            <a href="#amortizacion" class="btn btn-simple btn-link btn-wd">Amortización</a>--}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card card-plain table-plain-bg">
-                    <div class="card-body table-full-width table-responsive">
-                        <table class="table table-hover">
-                            <thead>
+                <div class="col-md-12">
+                    <div class="card card-plain table-plain-bg">
+                        <div class="card-body table-full-width table-responsive">
+                            <table class="table table-hover">
+                                <thead>
                                 <th>Num cuota</th>
                                 <th>Fecha</th>
                                 <th>Monto</th>
@@ -118,55 +160,195 @@
                                 <th>Deuda</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
-                            </thead>
-                            <tbody>
+                                </thead>
+                                <tbody>
                                 @foreach($fechacobro as $fechaco)
-                                   <tr onclick="click('{{ $prestamo->id }}')">
+                                    <tr onclick="click('{{ $prestamo->id }}')">
                                         <td>{{ $fechaco->num_cuota }}</td>
                                         <td>{{ \Carbon\Carbon::parse($fechaco->fecha)->format('d/m/Y')}}</td>
                                         <td>${{$fechaco->valor_cuota ?? '0'}}</td>
-                                       @if($fechaco->Pagos)
-                                           <td>${{$fechaco->Pagos->monto}}</td>
-                                           @else
-                                           <td>$0</td>
-                                           @endif
-                                       @if($fechaco->Pagos)
-                                           <td>${{$fechaco->Pagos->deuda}}</td>
-                                       @else
-                                           <td>$0</td>
-                                       @endif
+                                        @if($fechaco->Pagos)
+                                            <td>${{$fechaco->Pagos->capital}}</td>
+                                        @else
+                                            <td>$0</td>
+                                        @endif
+                                        @if($fechaco->Pagos)
+                                            <td>${{$fechaco->Pagos->atraso}}</td>
+                                        @else
+                                            <td>$0</td>
+                                        @endif
 
-                                       {{--<td>0</td>--}}
-                                       {{--<td>0</td>--}}
-                                       @if($fechaco->estadocuota_id != 1)
-                                        <td>{{$fechaco->Estados->descripcion}}</td>
-                                       @else
-                                           <td style="color: #ff0000;">{{$fechaco->Estados->descripcion}}</td>
-                                           @endif
+                                        {{--<td>0</td>--}}
+                                        {{--<td>0</td>--}}
+                                        @if($fechaco->estadocuota_id != 1)
+                                            <td>{{$fechaco->Estados->descripcion}}</td>
+                                        @else
+                                            <td style="color: #ff0000;">{{$fechaco->Estados->descripcion}}</td>
+                                        @endif
                                         {{--<td>--}}
-                                            {{--{!! Form::open(['method' => 'DELETE','route' => ['pagos.destroy', $fechaco->id],'style'=>'display:inline']) !!}--}}
-                                            {{--{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
-                                            {{--{!! Form::close() !!}--}}
+                                        {{--{!! Form::open(['method' => 'DELETE','route' => ['pagos.destroy', $fechaco->id],'style'=>'display:inline']) !!}--}}
+                                        {{--{!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
+                                        {{--{!! Form::close() !!}--}}
                                         {{--</td>--}}
-                                       <td>
-                                       @if($fechaco->estadocuota_id == 1)
+                                        <td>
+                                            @if($fechaco->estadocuota_id == 1)
 
 
 
-                                           <button href="{{ route('pagos.create', $fechaco->id) }}" class="btn btn-success btn-sm">Pagar</button>
+                                                <a onclick="abrirModalPago({{$fechaco->id}},{{$fechaco->valor_cuota}},{{$fechaco->num_cuota}})"
+
+                                                        class="text-white btn btn-success btn-sm">Pagar
+                                                </a>
 
 
-                                       @endif
-                                       <button href="{{ route('pagos.create', $fechaco->id) }}" class="btn btn-info  btn-sm"><i class="fa fa-eye"></i></button>
-                                       </td>
+                                            @endif
+                                            <button href="#" class="btn btn-info  btn-sm"><i class="fa fa-eye"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<div class="modal fade" id="pagosModal" tabindex="-1" role="dialog" aria-labelledby="pagosModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pagosModalLabel">Pagar cuota</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="pagoForm"  action="users"  method="post" >
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>N° de cuota</label>
+                                <input  readonly="true" id="numcuota" name="numcuota" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Monto</label>
+                                <input  readonly="true" id="montocuota" name="montocuota" class="form-control" value="">
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Monto a abonar</label>
+                                <input type="number" min="1" step="any" id="capital" name="capital" class="form-control" value="" onkeyup="CalculateSaldo()">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Saldo</label>
+                                <input readonly="true" id="saldo" name="saldo" class="form-control" value="">
+                            </div>
+                        </div>
+
+                        <input hidden id="idfechacobro" name="idfechacobro" value="">
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Observación</label>
+                                <input  id="observacion" name="observacion" class="form-control" value="">
+                            </div>
+                        </div>
+
+
+                    </div>
+                    {{csrf_field()}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnsaldo" class="btn btn-info">Confirmar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
 </div>
+<script>
+    $(document).ready(function () {
+
+    });
+    function abrirModalPago(id,valorcuota,numcuota) {
+        // plan = $('#').value();
+        // alert('Id es: '+id+' valor de la cuotas es:'+valorcuota);
+        $('#idfechacobro').val(id);
+        $('#montocuota').val(valorcuota);
+        $('#numcuota').val(numcuota);
+        $( "#capital" ).val('');
+        $('#btnsaldo').hide();
+        // $('#capital').focus();
+
+        // $('#datosplanwsp').attr('value', plan);
+        $('#pagosModal').modal('show');
+    }
+    function CalculateSaldo() {
+        var monto = $('#capital').val();
+        var valcuota = $('#montocuota').val();
+        if(monto !== ''){
+            var result = parseInt(valcuota - monto);
+            // alert(result);
+            $('#saldo').val(result);
+            $('#btnsaldo').show();
+        }
+        else{
+            $('#btnsaldo').hide();
+            $('#saldo').val('');
+        }
+
+    }
+    $('#btnsaldo')
+        .on('click', function (e) {
+            console.log('clickAddPago');
+            e.preventDefault();
+            $.ajax({
+                url: '/pago/addpago/',
+                type: 'POST',
+                data: $('#pagoForm').serialize(),
+                success: function (data) {
+                    $('#pagosModal').modal('hide')
+                    $.notify({
+                        // options
+                        message: 'Pago registrado con exito'
+                    },{
+                        // settings
+                        type: 'success'
+                    });
+                    // window.history.go(-2)
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
+
+                    // toastr.info('SE REGISTRO EXITOSAMENTE EL PAGO');
+
+
+                },
+                error: function (error) {
+                    // toastr.error('Error');
+                }
+            });
+
+        });
+
+</script>
+
+<style>
+        .textNegritas {
+            font-weight: bold;
+            font-size: 15px;
+        }
+    </style>
 @endsection

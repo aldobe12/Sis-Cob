@@ -5,7 +5,8 @@
         <div class="container-fluid">
             <div class="section-image" data-image="../../assets/img/bg5.jpg">
                 <div class="container">
-                    {{ Form::open(array('route' => 'usuarios.store', 'files'=>true,'class'=>'form')) }}
+                    <form method="POST" action="{{ route('usuarios.store') }}">
+                        @csrf
                     <div class="row">
                         <div class="col-md-8 col-sm-6">
                             <div class="card ">
@@ -20,12 +21,22 @@
                                             <div class="form-group">
                                                 <label>Nombre</label>
                                                 <input name="name" id="name" class="form-control" required>
+                                                @if ($errors->has('name'))
+                                                    <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Apellido</label>
                                                 <input name="lastname" id="lastname" class="form-control" required>
+                                                @if ($errors->has('lastname'))
+                                                    <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('lastname') }}</strong>
+                                </span>
+                                                @endif
                                             </div>
                                         </div>
 
@@ -35,7 +46,12 @@
                                             <label>Email</label>
                                             <input name="email" id="email" type="email" class="form-control"
                                             >
-                                        </div>
+                                            @if ($errors->has('email'))
+                                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                                            @endif
+                                </div>
 
                                     <div class="form-group" class="col-md-6">
                                         <label for="password" class=" col-form-label text-md-right">Contraseña</label>
@@ -51,28 +67,28 @@
                                         <label for="password-confirm" class=" col-form-label text-md-right">Confirmar Contraseña</label>
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                     </div>
-                                    <div class="form-group">
-                                        <label>Rol</label>
-                                        <select name="rol" class="selectpicker" data-menu-style='dropdown-blue'
-                                                data-style='btn-default btn-outline' required>
-                                            <option value="" selected disabled>Seleccione un rol</option>
+{{--                                    <div class="form-group">--}}
+{{--                                        <label>Rol</label>--}}
+{{--                                        <select name="rol"  id="rol" class="selectpicker" data-menu-style='dropdown-blue'--}}
+{{--                                                data-style='btn-default btn-outline' required>--}}
+{{--                                            <option value="" selected disabled>Seleccione un rol</option>--}}
 
-                                                @foreach($roles as $rol)
-                                                    <option value="{{$rol->id}}">{{$rol->description}}</option>
-                                                @endforeach
+{{--                                                @foreach($roles as $rol)--}}
+{{--                                                    <option value="{{$rol->id}}">{{$rol->description}}</option>--}}
+{{--                                                @endforeach--}}
 
-                                            {{--<option disabled>Seleccione un sexo</option>--}}
-                                        </select>
-                                        {{--{{ Form::label('sexo', 'Sexo') }}--}}
-                                        {{--{{Form::select(--}}
-                                        {{--'sexo', ['m' => 'M', 'f'=> 'F', 'otro' => 'Otro'], null, [--}}
-                                        {{--'class' => 'selectpicker', --}}
-                                        {{--'data-title' => 'Seleccionar',--}}
-                                        {{--'data-style' => 'btn-default btn-outline', --}}
-                                        {{--'data-menu-style' => 'dropdown-blue'--}}
-                                        {{--])--}}
-                                        {{--}}--}}
-                                    </div>
+{{--                                            --}}{{--<option disabled>Seleccione un sexo</option>--}}
+{{--                                        </select>--}}
+{{--                                        --}}{{--{{ Form::label('sexo', 'Sexo') }}--}}
+{{--                                        --}}{{--{{Form::select(--}}
+{{--                                        --}}{{--'sexo', ['m' => 'M', 'f'=> 'F', 'otro' => 'Otro'], null, [--}}
+{{--                                        --}}{{--'class' => 'selectpicker', --}}
+{{--                                        --}}{{--'data-title' => 'Seleccionar',--}}
+{{--                                        --}}{{--'data-style' => 'btn-default btn-outline', --}}
+{{--                                        --}}{{--'data-menu-style' => 'dropdown-blue'--}}
+{{--                                        --}}{{--])--}}
+{{--                                        --}}{{--}}--}}
+{{--                                    </div>--}}
                                     <div class="row">
                                         {{--<div class="col-md-4">--}}
                                             {{--<div class="form-group">--}}
@@ -205,7 +221,7 @@
                             {{--</div>--}}
                         {{--</div>--}}
                     </div>
-                    {{ Form::close() }}
+                    </form>
                 </div>
             </div>
         </div>

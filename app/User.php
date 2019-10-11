@@ -7,6 +7,7 @@ use App\Role;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -66,5 +67,13 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+    public static function GetUsuarios(){
+        $organizacion_id = Organizacion::where('id',Auth::user()->organization_id)->first()->id;
+
+
+        $usuarios = User::where('organization_id',$organizacion_id)->pluck('id')->toArray();
+
+        return $usuarios;
     }
 }

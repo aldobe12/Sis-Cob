@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Cliente;
 use App\FechasCobro;
 use App\Prestamo;
+use App\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PrestamoController extends Controller
@@ -30,8 +32,12 @@ class PrestamoController extends Controller
      */
     public function create()
     {
+        return 'Hola';
+        $usuarios = User::GetUsuarios();
 //        $clientes = Cliente::selectRaw('id, CONCAT(nombre," ",apellido) as full_name')->pluck('full_name', 'id');
-        $clientes = Cliente::all();
+        $clientes = Cliente::whereIn('user_id', $usuarios)
+            ->get();
+//        return $clientes;
         return view('prestamo.create')->with('clientes', $clientes);
     }
 
@@ -49,16 +55,20 @@ class PrestamoController extends Controller
         DB::beginTransaction();
 
         try {
-            $campos = $request->all();
-//            return $campos;
+            $campos = $request->all()  + ['user_id' => Auth::id()];
+//             dd($campos);
             $campos['monto_actual'] = $request->monto;
+//            $campos['user_id'] = Auth::id();
+
+//            return $campos;
             ($pres = Prestamo::create($campos)) ? $success = true : $success = false;
+
         } catch (Exception $e) {
 
         }
 
         if ($success) {
-
+//return $pres;
            $idprestamo = $pres->id;
             $fecha = $campos['fecha'];
             $date = DateTime::createFromFormat('d/m/Y', $fecha);
@@ -124,7 +134,14 @@ class PrestamoController extends Controller
      */
     public function edit(Prestamo $prestamo)
     {
-        return view('prestamo.edit')->with('prestamo', $prestamo);
+        $usuarios = User::GetUsuarios();
+//        $clientes = Cliente::selectRaw('id, CONCAT(nombre," ",apellido) as full_name')->pluck('full_name', 'id');
+        $clientes = Cliente::whereIn('user_id', $usuarios)
+            ->get();
+        return view('prestamo.edit')
+            ->with('prestamo', $prestamo)
+            ->with('clientes', $clientes)
+            ;
     }
 
     /**
@@ -141,7 +158,7 @@ class PrestamoController extends Controller
  
         DB::beginTransaction();
         try {
-            $campos = $request->all();
+            $campos = $request->all() + ['user_id' => Auth::id()];
             $campos['cliente_id'] = $cliente;
             ($prestamo->update($campos)) ? $success = true : $success = false;
         } catch (Exception $e) {

@@ -25,6 +25,7 @@ class Prestamo extends Model
         'codeudor',
         'cDireccion',
         'cTelefono',
+        'user_id'
     ];
 
     public function pagos()
@@ -41,6 +42,10 @@ class Prestamo extends Model
     }
     public function cliente2(){
         return $this->belongsTo('App\Cliente', 'cliente_id', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public static function rules()

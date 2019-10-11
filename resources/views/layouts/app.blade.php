@@ -3,11 +3,11 @@
 <head>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
 
-	<meta charset="utf-8" />
+{{--	<meta charset="utf-8" />--}}
 
     <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.ico')}}">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>SysCob</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
@@ -31,7 +31,7 @@
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
     <div class="wrapper">
-        <div class="sidebar" data-color="blue">
+        <div class="sidebar" id="sidebar" data-color="blue">
 
             <div class="sidebar-wrapper">
                 <div class="logo">
@@ -46,14 +46,14 @@
                     <div class="photo">
                         <img src="{{asset('assets/img/default-avatar.png')}}" />
                     </div>
-                    <div class="info ">
+                    <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" class="collapsed">
                             <span> {{Auth::user()->name}}
                                 <b class="caret"></b>
                             </span>
                         </a>
                         <div class="collapse" id="collapseExample">
-                            <ul class="nav">
+                            <ul class="nav" id="nav">
                                 <li>
                                     <a class="profile-dropdown" href="#pablo">
                                         <span class="sidebar-normal">Perfil</span>
@@ -82,7 +82,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
-                            <i class="fa fa-users" aria-hidden="true""></i>
+                            <i class="fa fa-users" aria-hidden="true"></i>
                             <p>
                                 Clientes
                                 <b class="caret"></b>
@@ -127,41 +127,45 @@
                         </div>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="/pagos">
+                        <a class="nav-link" href="/pagos/index" disabled="true">
                             <i class="fa fa-briefcase" aria-hidden="true"></i>
                             <p>Pagos</p>
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="/cobros">
+                        <a class="nav-link" href="/cobros/index">
                             <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                             <p>Cobros</p>
                         </a>
                     </li>
+                    @if(Auth::user()->roles->first()->name == 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#componentsExamples1">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                <p>
+                                    Usuarios
 
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#componentsExamples1">
-                            <i class="fa fa-user-circle" aria-hidden="true"></i>
-                            <p>
-                                Usuarios
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <div class="collapse " id="componentsExamples1">
-                            <ul class="nav">
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="{{ route('usuarios.create') }}">
-                                        <span class="sidebar-normal">Nuevo Usuario</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="/usuarios">
-                                        <span class="sidebar-normal">Listado Usuarios</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                                    <b class="caret"></b>
+                                </p>
+                            </a>
+                            <div class="collapse " id="componentsExamples1">
+                                <ul class="nav">
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="{{ route('usuarios.create') }}">
+                                            <span class="sidebar-normal">Nuevo Usuario</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="/usuarios">
+                                            <span class="sidebar-normal">Listado Usuarios</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        @endif
+
+
                 </ul>
             </div>
         </div>
@@ -170,10 +174,10 @@
 
         <div class="main-panel">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg ">
+            <nav class="navbar navbar-expand-lg " >
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
-                        <div class="navbar-minimize">
+                        <div class="navbar-minimize" >
                             <button id="minimizeSidebar" class="btn btn-info btn-fill btn-round btn-icon d-none d-lg-block">
                                 <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
                                 <i class="fa fa-navicon visible-on-sidebar-mini"></i>
@@ -181,7 +185,7 @@
                         </div>
                         <a class="navbar-brand" href="/dashboard"> Créditos BRATVA </a>
                     </div>
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <button id="btnopenMenu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -195,7 +199,7 @@
                                 {{--</div>--}}
                             {{--</form>--}}
                         </ul>
-                        <ul class="navbar-nav">
+                        <ul class="navbar-nav" id="navbar">
                             {{--<li class="dropdown nav-item">--}}
                                 {{--<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">--}}
                                     {{--<i class="nc-icon nc-bell-55"></i>--}}
