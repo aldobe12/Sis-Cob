@@ -36,7 +36,7 @@ class PrestamoController extends Controller
      */
     public function create()
     {
-        return 'Hola';
+//        return 'Hola';
         $usuarios = User::GetUsuarios();
 //        $clientes = Cliente::selectRaw('id, CONCAT(nombre," ",apellido) as full_name')->pluck('full_name', 'id');
         $clientes = Cliente::whereIn('user_id', $usuarios)
