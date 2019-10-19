@@ -25,8 +25,8 @@ Route::get('/cliente/list', 'ClientController@index2')->middleware('auth');
 Route::get('/usuario/list', 'UsuarioController@index2')->middleware('auth');
 //Route::get('pagos/{pago}/create', 'PagoController@create')->name('pagos.create')->middleware('auth');
 Route::get('/cobros/index/{desde?}/{hasta?}', 'CobrosController@index');
-Route::get('/pagos/index/{desde?}/{hasta?}', 'PagoController@index');
-Route::post('/pago/addpago/', 'PagoController@store');
+Route::get('/pagos/index/{desde?}/{hasta?}', 'PagoController@index')->name('pagos.create');
+Route::post('/pago/addpago/{id}', 'PagoController@store');
 
 Route::get('/logout', function()
 	{

@@ -43,7 +43,7 @@
                         </div>
                         <table id="bootstrap-table" class="table">
                             <thead>
-                                {{--<th data-field="id" class="text-center">ID</th>--}}
+                                <th data-field="id" class="text-center">ID</th>
                                 <th data-field="cliente" data-sortable="true">Cliente</th>
                                 {{--<th data-field="amortizacion" data-sortable="true">Amortización</th>--}}
                                 <th data-field="montoprestado" data-sortable="true">Monto Prestado</th>
@@ -58,7 +58,7 @@
                             <tbody>
                                 @foreach($prestamos as $prestamo)
                                    <tr onclick="click('{{ $prestamo->id }}')">
-{{--                                        <td>{{ $prestamo->id }}</td>--}}
+                                        <td>{{ $prestamo->id }}</td>
                                         <td>{{ $prestamo->cliente->nombre }} {{ $prestamo->cliente->apellido }}</td>
 {{--                                        <td>{{ $prestamo->amortizacion }}</td>--}}
                                         <td>${{ $prestamo->monto }}</td>

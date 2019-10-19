@@ -44,12 +44,20 @@
                 <div class="col-md-3">
                     <div class="card card-user c-user">
                         <div class="avatar-view">
-                            <div class="avatar-preview">
-                                <div id="imagePreview"
-                                     style="background-image: url('{{asset('avatars/'.$prestamo->cliente->avatar)}}');"></div>
-                            </div>
+                            @if($prestamo->cliente->sexo == 'm' )
+                                <div class="avatar-preview">
+                                    <div id="imagePreview"
+                                         style="background-image: url('{{asset('avatars/'.'man.png')}}');"></div>
+                                </div>
+                                @else
+                                <div class="avatar-preview">
+                                    <div id="imagePreview"
+                                         style="background-image: url('{{asset('avatars/'.'woman.png')}}');"></div>
+                                </div>
+                                @endif
+
                             <h3>{{$prestamo->cliente->nombre}} {{$prestamo->cliente->apellido}}</h3>
-                            <span>{{$prestamo->cliente->tel}}</span>
+                            <h5>{{$prestamo->cliente->tel}}</h5>
                         </div>
                     </div>
                 </div>
@@ -65,7 +73,7 @@
                                         <td class="textNegritas">${{$prestamo->monto}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Fecha</td>
+                                        <td>Fecha de creación</td>
                                         <td>{{$prestamo->fecha}}</td>
                                     </tr>
                                     <tr>
@@ -83,7 +91,12 @@
                                     ?>
                                     <tr>
                                         <td>Atraso</td>
-                                        <td>${{$montoatraso}}</td>
+                                        @if($montoatraso > 0)
+                                            <td class="textNegritasRed">${{$montoatraso}}</td>
+                                            @else
+                                            <td>${{$montoatraso}}</td>
+                                            @endif
+
                                     </tr>
                                     <tr>
                                         <td>Generado por</td>
@@ -122,6 +135,10 @@
                                     <tr>
                                         <td>Monto de cuota</td>
                                         <td>@money($valcuota.'00', 'USD')</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pagado</td>
+                                        <td>${{$pago}}</td>
                                     </tr>
                                     {{--                                <tr>--}}
                                     {{--                                    <td>Ganancia</td>--}}
@@ -219,7 +236,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="pagosModalLabel">Pagar cuota</h5>
+                <h5 class="modal-title " id="pagosModalLabel">Pagar cuota</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -227,6 +244,7 @@
             <form id="pagoForm"  action="users"  method="post" >
                 <div class="modal-body">
                     <div class="row">
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>N° de cuota</label>
@@ -236,7 +254,12 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Monto</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        $
+                                    </div>
                                 <input  readonly="true" id="montocuota" name="montocuota" class="form-control" value="">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -244,13 +267,24 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Monto a abonar</label>
-                                <input type="number" min="1" step="any" id="capital" name="capital" class="form-control" value="" onkeyup="CalculateSaldo()">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        $
+                                    </div>
+                                    <input type="number" autofocus min="1" step="any" id="capital" name="capital" class="form-control" value="" onkeyup="CalculateSaldo()">
+                                </div>
+{{--                                <input type="number" min="1" step="any" id="capital" name="capital" class="form-control" value="" onkeyup="CalculateSaldo()">--}}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Saldo</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        $
+                                    </div>
                                 <input readonly="true" id="saldo" name="saldo" class="form-control" value="">
+                                </div>
                             </div>
                         </div>
 
@@ -282,15 +316,17 @@
     $(document).ready(function () {
 
     });
+
     function abrirModalPago(id,valorcuota,numcuota) {
         // plan = $('#').value();
         // alert('Id es: '+id+' valor de la cuotas es:'+valorcuota);
+        var idfecha = id;
         $('#idfechacobro').val(id);
         $('#montocuota').val(valorcuota);
         $('#numcuota').val(numcuota);
         $( "#capital" ).val('');
         $('#btnsaldo').hide();
-        // $('#capital').focus();
+
 
         // $('#datosplanwsp').attr('value', plan);
         $('#pagosModal').modal('show');
@@ -313,24 +349,28 @@
     $('#btnsaldo')
         .on('click', function (e) {
             console.log('clickAddPago');
+            var id = $('#idfechacobro').val();
+
             e.preventDefault();
             $.ajax({
-                url: '/pago/addpago/',
+                url: '/pago/addpago/'+id,
                 type: 'POST',
                 data: $('#pagoForm').serialize(),
                 success: function (data) {
-                    $('#pagosModal').modal('hide')
+                    // $('#pagosModal').modal('hide')
+
                     $.notify({
                         // options
-                        message: 'Pago registrado con exito'
+                        message: data
                     },{
                         // settings
                         type: 'success'
                     });
+                    actualizarPagina();
+
+                    // alert(data);
                     // window.history.go(-2)
-                    setTimeout(function () {
-                        location.reload();
-                    }, 500);
+
 
                     // toastr.info('SE REGISTRO EXITOSAMENTE EL PAGO');
 
@@ -342,11 +382,18 @@
             });
 
         });
-
+function actualizarPagina() {
+    location.reload();
+}
 </script>
 
 <style>
         .textNegritas {
+            font-weight: bold;
+            font-size: 15px;
+        }
+        .textNegritasRed {
+            color: red;
             font-weight: bold;
             font-size: 15px;
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\FechasCobro;
+use App\Pago;
 use App\Prestamo;
 use App\User;
 use DateTime;
@@ -34,12 +35,14 @@ class PrestamoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function create()
     {
 //        return 'Hola';
         $usuarios = User::GetUsuarios();
 //        $clientes = Cliente::selectRaw('id, CONCAT(nombre," ",apellido) as full_name')->pluck('full_name', 'id');
         $clientes = Cliente::whereIn('user_id', $usuarios)
+            ->orderBy('apellido', 'ASC')
             ->get();
 //        return $clientes;
         return view('prestamo.create')->with('clientes', $clientes);
@@ -123,10 +126,13 @@ class PrestamoController extends Controller
 
     {
         $idprestamo = $prestamo->id;
+        $id_fecha = FechasCobro::where('prestamo_id',$idprestamo)->pluck('id')->toArray();
+        $pago = Pago::whereIn('fecha_cobro_id',$id_fecha)->sum('capital');
         $fechacobro = FechasCobro::with('Pagos')->where('prestamo_id',$idprestamo)->get();
         return view('prestamo.show')
             ->with('prestamo', $prestamo)
             ->with('fechacobro', $fechacobro)
+            ->with('pago', $pago)
             ;
     }
 

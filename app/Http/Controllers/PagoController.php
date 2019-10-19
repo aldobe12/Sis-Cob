@@ -78,69 +78,39 @@ class PagoController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
 
-//        $success = false;
-//        $this->validate($request, Pago::rules());
+        $idpre = FechasCobro::where('id', $id)->first()->prestamo_id;
 
-//        DB::beginTransaction();
-        $idpre = FechasCobro::where('id', $request->idfechacobro)->first()->prestamo_id;
-//        return  $idpre;
-        try {
-            $pago = new Pago();
-            $pago->fecha_pago = now()->format('Ymd');
-            $pago->capital = $request->capital;
-            $pago->atraso = $request->saldo;
-            $pago->nota = $request->observacion;
-            $pago->forma_pago = 'Efectivo';
-            $pago->created_at = now();
-            $pago->fecha_cobro_id = $request->idfechacobro;
-            $pago->user_id = Auth::id();
-            $pago->save();
-//            $campos = $request->all();
+        $pago = new Pago();
+        $pago->fecha_pago = now()->format('Ymd');
+        $pago->capital = $request->capital;
+        $pago->atraso = $request->saldo;
+        $pago->nota = $request->observacion;
+        $pago->forma_pago = 'Efectivo';
+        $pago->created_at = now();
+        $pago->fecha_cobro_id = $request->idfechacobro;
+        $pago->user_id = Auth::id();
+        $pago->save();
 
-//return $request->idfechacobro;
-//
-            if ($request->saldo > 0) {
-                $estadocuota = 3;
-            } else {
-                $estadocuota = 2;
-            }
-//            return $estadocuota;
-//            $pago = Pago::create($campos);
-
-            if ($pago) {
-//                return 'Paso por si';
-                $success = true;
-                $fechaCob = FechasCobro::where('id', $request->idfechacobro)->first();
-                $fechaCob->estadocuota_id = $estadocuota;
-                $fechaCob->save();
-
-                $prestamo = Prestamo::where('id', $fechaCob->prestamo_id)->first();
-                $prestamo->monto_actual = $prestamo->monto_actual - $request->capital;
-                $prestamo->updated_at = now();
-                $prestamo->save();
-
-//                $data['message'] = 'Pago registrado con exito';
-//                $data['type'] = 'success';
-//                route('', $prestamo->id)
-                return response('Pago registrado con exito', 200);
-//                return Redirect::to('/prestamos/'.$idpre)->with('response', $data);
-//                return back()->with('response', $data);
-
-//                    $request->prestamo_id)->monto_actual - $request->capital;
-//                ($pago->prestamo()->update(array('monto_actual' => $monto_actual))) ? $success = true : $success = false;
-            } else {
-//                $data['message'] = 'Algo salió mal. Intente luego';
-//                $data['type'] = 'error';
-                return response('Algo salió mal. Intente luego', 404);
-            }
-
-        } catch (Exception $e) {
-
+        if ($request->saldo > 0) {
+            $estadocuota = 3;
+        } else {
+            $estadocuota = 2;
         }
 
+
+        $fechaCob = FechasCobro::where('id', $request->idfechacobro)->first();
+        $fechaCob->estadocuota_id = $estadocuota;
+        $fechaCob->save();
+
+        $prestamo = Prestamo::where('id', $fechaCob->prestamo_id)->first();
+        $prestamo->monto_actual = $prestamo->monto_actual - $request->capital;
+        $prestamo->updated_at = now();
+        $prestamo->save();
+
+        return response('Pago creado con éxito', 200);
 
 
     }

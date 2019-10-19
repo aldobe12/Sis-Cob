@@ -190,7 +190,7 @@
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
                     </button>
-                    <div class="collapse navbar-collapse justify-content-end">
+                    <div class="collapse navbar-collapse justify-content-center">
                         <ul class="nav navbar-nav mr-auto">
                             {{--<form class="navbar-form navbar-left navbar-search-form" role="search">--}}
                                 {{--<div class="input-group">--}}
