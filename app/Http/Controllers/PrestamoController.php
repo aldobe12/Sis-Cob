@@ -134,8 +134,7 @@ class PrestamoController extends Controller
         return view('prestamo.show')
             ->with('prestamo', $prestamo)
             ->with('fechacobro', $fechacobro)
-            ->with('pago', $pago)
-            ;
+            ->with('pago', $pago);
     }
 
     /**

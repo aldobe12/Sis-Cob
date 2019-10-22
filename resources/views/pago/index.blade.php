@@ -107,15 +107,22 @@
                             </tbody>
                         </table>
                         @if(count($pagos) >0)
+
                             <div class="col-md-12">
                                 <div class="container text-center">
-                                    <h5>Total cobrado:</h5><h2>${{$pagoTotal}}</h2>
+                                    <div class="d-flex justify-content-center">
+                                        <div class="col-md-6">
+                                            <label>Cantidad: </label><h4> {{count($pagos)}}</h4>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Total a cobrar: </label><h4> ${{number_format($pagoTotal, 2, ',', '.')}}</h4>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
-{{--                            <div class="col-md-12">--}}
-{{--                                <a id="btnImprimir"  title="Imprimir pagos" class="btn btn-secondary btn-block" href="#">Imprimir</a>--}}
-{{--                            </div>--}}
+
 
                         @endif
 

@@ -128,8 +128,18 @@
                         </table>
                         @if(count($cobros) >0)
                             <div class="col-md-12">
-                                <div class="container">
-                                    <h5>Total a cobras:</h5><h2>${{$deudaTotal}}</h2>
+                                <div class="container text-center">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="col-md-6">
+                                            <label>Cantidad: </label><h4> {{count($cobros)}}</h4>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Total a cobrar: </label><h4> ${{number_format($deudaTotal, 2, ',', '.')}}</h4>
+                                        </div>
+                                    </div>
+                                    </div>
+
                                 </div>
 
                             </div>

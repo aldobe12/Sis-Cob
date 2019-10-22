@@ -21,13 +21,13 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nombres</label>
-                                                <input name="nombre" id="nombre" class="form-control" required>
+                                                <input name="nombre" placeholder="Juan" id="nombre" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Apellido</label>
-                                                <input name="apellido" id="apellido" class="form-control" required>
+                                                <input name="apellido" placeholder="Perez" id="apellido" class="form-control" required>
                                             </div>
                                         </div>
 
@@ -38,7 +38,7 @@
                                                 {{--{{ Form::label('cedula', 'Cedula') }}--}}
                                                 {{--{{ Form::text('cedula', '', array('class' => 'form-control')) }}--}}
                                                 <label>DNI</label>
-                                                <input name="dni" id="dni" type="number" class="form-control"
+                                                <input name="dni" id="dni" placeholder="12345678" type="number" class="form-control"
                                                        required>
                                             </div>
                                         </div>
@@ -110,8 +110,8 @@
                                                 {{--{{ Form::label('direccion', 'Direccion') }}--}}
                                                 {{--{{ Form::text('direccion', '', array('class' => 'form-control')) }}--}}
                                                 <label>Dirección</label>
-                                                <input name="direccion" id="direccion" type="text" class="form-control"
-                                                >
+                                                <input name="direccion" placeholder="Calle 1234" id="direccion" type="text" class="form-control"
+                                                       required>
                                             </div>
                                         </div>
 
@@ -153,14 +153,14 @@
                                                 {{--{{ Form::label('telR', 'Telefono') }}--}}
                                                 {{--{{ Form::text('telR', '', array('class' => 'form-control')) }}--}}
                                                 <label>Telefono</label>
-                                                <input name="telefono" id="telefono" type="number" class="form-control"
-                                                >
+                                                <input name="telefono" placeholder="3815789127"id="telefono" type="number" class="form-control"maxlength="10"
+                                                       required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input name="email" id="email" type="text" class="form-control"
+                                                <input name="email" placeholder="correo@correo.com" id="email" type="text" class="form-control"
                                                        >
                                             </div>
                                         </div>
