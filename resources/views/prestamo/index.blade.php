@@ -47,11 +47,13 @@
                                 <th data-field="cliente" data-sortable="true">Cliente</th>
                                 {{--<th data-field="amortizacion" data-sortable="true">Amortización</th>--}}
                                 <th data-field="montoprestado" data-sortable="true">Monto Prestado</th>
-                                <th data-field="montodevolver" data-sortable="true">Monto a devolver</th>
-                                <th data-field="interes" data-sortable="true">Interés</th>
                                 <th data-field="periodos" data-sortable="true">Cuotas</th>
+{{--                                <th data-field="montodevolver" data-sortable="true">Monto a devolver</th>--}}
+                                <th data-field="interes" data-sortable="true">Interés</th>
+                                <th data-field="montocta" data-sortable="true">Monto Cta</th>
+
                                 <th data-field="pagos" data-sortable="true">Pagos</th>
-                                <th data-field="ppago" data-sortable="true">Próximo Pago</th>
+                                <th data-field="ppago" data-sortable="true">Fecha Creación</th>
                                 <th data-field="activo" data-sortable="true">Activo</th>
                                 <th data-field="actions" class="td-actions">Opción</th>
                             </thead>
@@ -62,14 +64,10 @@
                                         <td>{{ $prestamo->cliente->nombre }} {{ $prestamo->cliente->apellido }}</td>
 {{--                                        <td>{{ $prestamo->amortizacion }}</td>--}}
                                         <td>${{ $prestamo->monto }}</td>
-                                       <?php
-                                       $cantcuota= $prestamo->cuotas;
-                                       $valcuota= $prestamo->fechascobro->valor_cuota;
-                                       $montodevolver = $valcuota * $cantcuota;
-                                       ?>
-                                        <td>${{$montodevolver}}</td>
+
+                                       <td>{{ $prestamo->cuotas }}</td>
                                         <td>{{ $prestamo->interes }} %</td>
-                                        <td>{{ $prestamo->cuotas }}</td>
+                                       <td>{{ $prestamo->fechascobro->valor_cuota }}</td>
                                         <td>{{ $prestamo->metodo_pago }}</td>
                                         <td>{{ $prestamo->fecha }}</td>
                                         <td>{{ $prestamo->estado }}</td>

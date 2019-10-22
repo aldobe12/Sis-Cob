@@ -30,20 +30,20 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand navbar-transparent navbar-absolute ">
             <div class="container">
-                <div class="collapse navbar-collapse justify-content-end" id="navbar">
-                    <ul class="navbar-nav">
-                        <li class="nav-item ">
-                            <a href="/register" class="nav-link">
-                                <i class="nc-icon nc-badge"></i> Registrarse
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/login" class="nav-link">
-                                <i class="nc-icon nc-mobile"></i> Iniciar sesión
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+{{--                <div class="collapse navbar-collapse justify-content-end" id="navbar">--}}
+{{--                    <ul class="navbar-nav">--}}
+{{--                        <li class="nav-item ">--}}
+{{--                            <a href="/register" class="nav-link">--}}
+{{--                                <i class="nc-icon nc-badge"></i> Registrarse--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="/login" class="nav-link">--}}
+{{--                                <i class="nc-icon nc-mobile"></i> Iniciar sesión--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
             </div>
         </nav>
         <!-- End Navbar -->

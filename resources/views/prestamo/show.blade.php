@@ -57,7 +57,8 @@
                                 @endif
 
                             <h3>{{$prestamo->cliente->nombre}} {{$prestamo->cliente->apellido}}</h3>
-                            <h5>{{$prestamo->cliente->tel}}</h5>
+                                <a title="Llamar" href="tel:{{$prestamo->cliente->telefono}}"><i class="fa fa-phone" aria-hidden="true"></i> {{$prestamo->cliente->telefono}}</a>
+
                         </div>
                     </div>
                 </div>
@@ -217,10 +218,12 @@
                                                         class="text-white btn btn-success btn-sm">Pagar
                                                 </a>
 
-
+@else
+                                                <button href="#" class="btn btn-info  btn-sm"><i class="fa fa-eye"></i>
+                                                </button>
                                             @endif
-                                            <button href="#" class="btn btn-info  btn-sm"><i class="fa fa-eye"></i>
-                                            </button>
+
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -241,7 +244,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="pagoForm"  action="users"  method="post" >
+            <form action="{{route('pagos.store')}}" method="POST" >
+                {{csrf_field()}}
                 <div class="modal-body">
                     <div class="row">
 
@@ -301,11 +305,11 @@
 
 
                     </div>
-                    {{csrf_field()}}
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" id="btnsaldo" class="btn btn-info">Confirmar</button>
+                    <button type="submit" id="btnsaldo" class="btn btn-info">Confirmar</button>
                 </div>
             </form>
 
@@ -346,42 +350,42 @@
         }
 
     }
-    $('#btnsaldo')
-        .on('click', function (e) {
-            console.log('clickAddPago');
-            var id = $('#idfechacobro').val();
-
-            e.preventDefault();
-            $.ajax({
-                url: '/pago/addpago/',
-                type: 'POST',
-                data: $('#pagoForm').serialize(),
-                success: function (data) {
-                    // $('#pagosModal').modal('hide')
-
-                    $.notify({
-                        // options
-                        message: data
-                    },{
-                        // settings
-                        type: 'success'
-                    });
-                    actualizarPagina();
-
-                    // alert(data);
-                    // window.history.go(-2)
-
-
-                    // toastr.info('SE REGISTRO EXITOSAMENTE EL PAGO');
-
-
-                },
-                error: function (error) {
-                    // toastr.error('Error');
-                }
-            });
-
-        });
+    // $('#btnsaldo')
+    //     .on('click', function (e) {
+    //         console.log('clickAddPago');
+    //         var id = $('#idfechacobro').val();
+    //
+    //         e.preventDefault();
+    //         $.ajax({
+    //             url: '/pago/addpago/',
+    //             type: 'POST',
+    //             data: $('#pagoForm').serialize(),
+    //             success: function (data) {
+    //                 // $('#pagosModal').modal('hide')
+    //
+    //                 $.notify({
+    //                     // options
+    //                     message: data
+    //                 },{
+    //                     // settings
+    //                     type: 'success'
+    //                 });
+    //                 actualizarPagina();
+    //
+    //                 // alert(data);
+    //                 // window.history.go(-2)
+    //
+    //
+    //                 // toastr.info('SE REGISTRO EXITOSAMENTE EL PAGO');
+    //
+    //
+    //             },
+    //             error: function (error) {
+    //                 // toastr.error('Error');
+    //             }
+    //         });
+    //
+    //     });
 function actualizarPagina() {
     location.reload();
 }

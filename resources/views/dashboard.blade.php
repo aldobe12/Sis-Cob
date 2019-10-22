@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-5">
                             <div class="icon-big text-center icon-info">
-                                <i class="nc-icon nc-chart-bar-32 text-info"></i>
+                                <i class="nc-icon nc-bank text-info"></i>
                             </div>
                         </div>
                         <div class="col-7">

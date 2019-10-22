@@ -25,7 +25,9 @@ class PrestamoController extends Controller
 
         $prestamos = Prestamo::with('Fechascobro')
             ->whereIn('user_id', $usuarios)
+            ->orderBy('id', 'DESC')
             ->get();
+
 
         return view('prestamo.index')->with('prestamos', $prestamos);
     }

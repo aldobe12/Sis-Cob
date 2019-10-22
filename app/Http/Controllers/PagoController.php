@@ -82,35 +82,49 @@ class PagoController extends Controller
     {
 
         $idpre = FechasCobro::where('id', $request->get('idfechacobro'))->first()->prestamo_id;
+        try {
+            $pago = new Pago();
+            $pago->fecha_pago = now()->format('Ymd');
+            $pago->capital = $request->capital;
+            $pago->atraso = $request->saldo;
+            $pago->nota = $request->observacion;
+            $pago->forma_pago = 'Efectivo';
+            $pago->created_at = now();
+            $pago->fecha_cobro_id = $request->get('idfechacobro');
+            $pago->user_id = Auth::id();
+            $pago->save();
 
-        $pago = new Pago();
-        $pago->fecha_pago = now()->format('Ymd');
-        $pago->capital = $request->capital;
-        $pago->atraso = $request->saldo;
-        $pago->nota = $request->observacion;
-        $pago->forma_pago = 'Efectivo';
-        $pago->created_at = now();
-        $pago->fecha_cobro_id = $request->get('idfechacobro');
-        $pago->user_id = Auth::id();
-        $pago->save();
+            if ($request->saldo > 0) {
+                $estadocuota = 3;
+            } else {
+                $estadocuota = 2;
+            }
 
-        if ($request->saldo > 0) {
-            $estadocuota = 3;
-        } else {
-            $estadocuota = 2;
+
+            $fechaCob = FechasCobro::where('id', $request->get('idfechacobro'))->first();
+            $fechaCob->estadocuota_id = $estadocuota;
+            $fechaCob->save();
+
+            $prestamo = Prestamo::where('id', $fechaCob->prestamo_id)->first();
+            $prestamo->monto_actual = $prestamo->monto_actual - $request->capital;
+            $prestamo->updated_at = now();
+            $prestamo->save();
+
+            $path = '/prestamos/'.$idpre;
+            $data['message'] = 'Pago registrado con éxito';
+            $data['type'] = 'success';
+
+            return Redirect::to($path)->with('response', $data);
+        }
+        catch (Exception $e) {
+            $path = '/prestamos/'.$idpre;
+            $data['message'] = 'Error intento luego';
+            $data['type'] = 'error';
+
+            return Redirect::to($path)->with('response', $data);
         }
 
-
-        $fechaCob = FechasCobro::where('id', $request->get('idfechacobro'))->first();
-        $fechaCob->estadocuota_id = $estadocuota;
-        $fechaCob->save();
-
-        $prestamo = Prestamo::where('id', $fechaCob->prestamo_id)->first();
-        $prestamo->monto_actual = $prestamo->monto_actual - $request->capital;
-        $prestamo->updated_at = now();
-        $prestamo->save();
-
-        return response('Pago creado con éxito', 200);
+//        return response('Pago creado con éxito', 200);
 
 
     }

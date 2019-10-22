@@ -133,9 +133,9 @@
                                 </div>
 
                             </div>
-                            <div class="col-md-12">
-                                <a id="btnImprimir" title="Imprimir cobros" class="btn btn-secondary btn-block" href="#">Imprimir</a>
-                            </div>
+{{--                            <div class="col-md-12">--}}
+{{--                                <a id="btnImprimir" title="Imprimir cobros" class="btn btn-secondary btn-block" href="#">Imprimir</a>--}}
+{{--                            </div>--}}
 
                         @endif
 

@@ -108,14 +108,14 @@
                         </table>
                         @if(count($pagos) >0)
                             <div class="col-md-12">
-                                <div class="container">
+                                <div class="container text-center">
                                     <h5>Total cobrado:</h5><h2>${{$pagoTotal}}</h2>
                                 </div>
 
                             </div>
-                            <div class="col-md-12">
-                                <a id="btnImprimir"  title="Imprimir pagos" class="btn btn-secondary btn-block" href="#">Imprimir</a>
-                            </div>
+{{--                            <div class="col-md-12">--}}
+{{--                                <a id="btnImprimir"  title="Imprimir pagos" class="btn btn-secondary btn-block" href="#">Imprimir</a>--}}
+{{--                            </div>--}}
 
                         @endif
 
