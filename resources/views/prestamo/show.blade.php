@@ -353,7 +353,7 @@
 
             e.preventDefault();
             $.ajax({
-                url: '/pago/addpago/'+id,
+                url: '/pago/addpago/',
                 type: 'POST',
                 data: $('#pagoForm').serialize(),
                 success: function (data) {

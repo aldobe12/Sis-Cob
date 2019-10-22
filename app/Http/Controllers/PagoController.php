@@ -78,10 +78,10 @@ class PagoController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
 
-        $idpre = FechasCobro::where('id', $id)->first()->prestamo_id;
+        $idpre = FechasCobro::where('id', $request->get('idfechacobro'))->first()->prestamo_id;
 
         $pago = new Pago();
         $pago->fecha_pago = now()->format('Ymd');
@@ -90,7 +90,7 @@ class PagoController extends Controller
         $pago->nota = $request->observacion;
         $pago->forma_pago = 'Efectivo';
         $pago->created_at = now();
-        $pago->fecha_cobro_id = $request->idfechacobro;
+        $pago->fecha_cobro_id = $request->get('idfechacobro');
         $pago->user_id = Auth::id();
         $pago->save();
 
@@ -101,7 +101,7 @@ class PagoController extends Controller
         }
 
 
-        $fechaCob = FechasCobro::where('id', $request->idfechacobro)->first();
+        $fechaCob = FechasCobro::where('id', $request->get('idfechacobro'))->first();
         $fechaCob->estadocuota_id = $estadocuota;
         $fechaCob->save();
 
