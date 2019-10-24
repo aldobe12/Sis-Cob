@@ -186,11 +186,11 @@
                         </div>
                         <a class="navbar-brand" href="/dashboard"> Créditos BRATVA </a>
                     </div>
-                    <button id="btnopenMenu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-bar burger-lines"></span>
-                        <span class="navbar-toggler-bar burger-lines"></span>
-                        <span class="navbar-toggler-bar burger-lines"></span>
-                    </button>
+{{--                    <button id="btnopenMenu" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">--}}
+{{--                        <span class="navbar-toggler-bar burger-lines"></span>--}}
+{{--                        <span class="navbar-toggler-bar burger-lines"></span>--}}
+{{--                        <span class="navbar-toggler-bar burger-lines"></span>--}}
+{{--                    </button>--}}
                     <div class="collapse navbar-collapse justify-content-center">
                         <ul class="nav navbar-nav mr-auto">
                             {{--<form class="navbar-form navbar-left navbar-search-form" role="search">--}}
