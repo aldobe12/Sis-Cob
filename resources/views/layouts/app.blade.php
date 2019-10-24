@@ -47,30 +47,31 @@
                         <img src="{{asset('assets/img/default-avatar.png')}}" />
                     </div>
                     <div class="info">
-                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+{{--                        <a data-toggle="collapse" href="#collapseExample" class="collapsed">--}}
+                        <a data-toggle="collapse"  class="collapsed">
                             <span> {{Auth::user()->name}}
                                 <b class="caret"></b>
                             </span>
                         </a>
-                        <div class="collapse" id="collapseExample">
-                            <ul class="nav" id="nav">
-                                <li>
-                                    <a class="profile-dropdown" href="#pablo">
-                                        <span class="sidebar-normal">Perfil</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="profile-dropdown" href="#pablo">
-                                        <span class="sidebar-normal">Editar Perfil</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="profile-dropdown" href="#pablo">
-                                        <span class="sidebar-normal">Configuraci&oacute;n</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
+{{--                        <div class="collapse" id="collapseExample">--}}
+{{--                            <ul class="nav" id="nav">--}}
+{{--                                <li>--}}
+{{--                                    <a class="profile-dropdown" href="#">--}}
+{{--                                        <span class="sidebar-normal">Perfil</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="profile-dropdown" href="#">--}}
+{{--                                        <span class="sidebar-normal">Editar Perfil</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                                <li>--}}
+{{--                                    <a class="profile-dropdown" href="#pablo">--}}
+{{--                                        <span class="sidebar-normal">Configuraci&oacute;n</span>--}}
+{{--                                    </a>--}}
+{{--                                </li>--}}
+{{--                            </ul>--}}
+{{--                        </div>--}}
                     </div>
                 </div>
                 <ul class="nav">
