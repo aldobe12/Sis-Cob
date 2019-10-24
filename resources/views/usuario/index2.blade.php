@@ -55,7 +55,7 @@
                                 {{--<th data-field="provincia" data-sortable="true">Provincia</th>--}}
                                 {{--<th data-field="telefono" data-sortable="true">Telefono</th>--}}
                                 {{--<th data-field="email" data-sortable="true">Email</th>--}}
-                                <th data-field="actions" class="td-actions">Opción</th>
+{{--                                <th data-field="actions" class="td-actions">Opción</th>--}}
                             </thead>
                             <tbody>
                                 @foreach($usuarios as $usuario)
@@ -72,11 +72,11 @@
                                         {{--<td>{{ $usuario->telefono }}</td>--}}
                                         {{--<td>{{ $usuario->email }}</td>--}}
                                         {{--<td>{{ $usuario->estado }}</td>--}}
-                                        <td>
-                                            <a title="Ver" class="btn btn-link btn-info table-action view" href="{{ route('usuarios.show', $usuario->id) }}">
-                                                <i class="fa fa-image"></i>
-                                            </a>
-                                        </td>
+{{--                                        <td>--}}
+{{--                                            <a title="Ver" class="btn btn-link btn-info table-action view" href="{{ route('usuarios.show', $usuario->id) }}">--}}
+{{--                                                <i class="fa fa-image"></i>--}}
+{{--                                            </a>--}}
+{{--                                        </td>--}}
                                     </tr>
                                 @endforeach
                             </tbody>
