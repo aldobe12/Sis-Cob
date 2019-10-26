@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class PrestamoController extends Controller
 {
@@ -108,7 +109,8 @@ class PrestamoController extends Controller
             DB::commit();
             $data['message'] = 'Prestamo creado con éxito';
             $data['type'] = 'success';
-            return redirect()->route('prestamos.index')->with('response', $data);
+//            return redirect()->route('prestamos.index')->with('response', $data);
+            return Redirect::to('/prestamos/'.$idprestamo)->with('response', $data);
         } else {
             DB::rollback();
             $data['message'] = 'Algo salió mal. Intente luego';
