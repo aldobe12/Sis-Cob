@@ -7,7 +7,7 @@
             @csrf
             <div class="card card-login card-hidden">
                 <div class="card-header ">
-                    <h3 class="header text-center">SysCob</h3>
+                    <h2 class="header text-center" style="font-family: 'Roboto', sans-serif;">SysCob</h2>
                 </div>
                 <div class="card-body ">
                     <div class="card-body">

@@ -13,6 +13,7 @@
 
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <!-- CSS Files -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" />
@@ -47,7 +48,7 @@
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="full-page  section-image" data-color="black" data-image="{{asset('assets/img/sidebar-4.jpg')}}" ;>
+        <div class="full-page  section-image" id="bg" data-color="black" data-image="{{asset('assets/img/prestamos-personales.jpg')}}" ;>
             <div class="content">
                 @yield('content')
             </div>
@@ -103,5 +104,16 @@
         }, 700)
     });
 </script>
+<style>
+    #bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        /* Preserve aspet ratio */
+        min-width: 100%;
+        min-height: 100%;
+    }
+</style>
 </body>
 </html>

@@ -98,6 +98,100 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
+
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="icon-big text-center pr-4 icon-warning">
+                                        <i class=" fa fa-calendar text-dark  "></i>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <a href="/cobros/index">
+                                            <p class="card-category">Cobros del día</p>
+                                            <h4 class="card-title">{{count($dashboard->cuentasCobrar)}}</h4>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card card-stats">
+                        <div class="card-body  ">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="icon-big text-center pr-4 icon-warning">
+                                        <i class="fa fa-money text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <a href="/prestamos">
+                                            <p class="card-category">Mi billetera</p>
+                                            <h4 class="card-title">${{number_format($dashboard->pagosdiaUser, 2, ',', '.')}}</h4>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="icon-big text-center pr-4 icon-warning">
+                                        <i class="fa fa-check-circle text-warning"></i>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="numbers">
+                                        <a href="/prestamos">
+                                            <p class="card-category">Prestamos finalizados</p>
+                                            <h4 class="card-title">{{$dashboard->prestamos}}</h4>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--                        <a href="/cobros/index">--}}
+                    {{--                            <div class="card-header ">--}}
+                    {{--                                <h4 class="card-title">Cobros del dia: {{count($dashboard->cuentasCobrar)}}</h4>--}}
+                    {{--                            </div>--}}
+                    {{--                        </a>--}}
+                    {{--                            <div class="card-body ">--}}
+
+                    {{--                                <div class="table-full-width">--}}
+                    {{--                                    <table class="table">--}}
+                    {{--                                        <tbody>--}}
+                    {{--                                        @foreach($dashboard->cuentasCobrar as $cuentas)--}}
+                    {{--                                            <tr>--}}
+                    {{--                                                <td>Prestamo {{$cuentas->prestamo_id}} - cuota--}}
+                    {{--                                                    No.{{$cuentas->num_cuota}} $ {{$cuentas->valor_cuota}}</td>--}}
+                    {{--                                                <td class="td-actions text-right">--}}
+                    {{--                                                    <button type="button" rel="tooltip" href="prestamos/{{$cuentas->prestamo_id}}" title="Edit Task"--}}
+                    {{--                                                            class="btn btn-info btn-simple btn-link">--}}
+                    {{--                                                        <i class="fa fa-edit"></i>--}}
+                    {{--                                                    </button>--}}
+                    {{--                                                </td>--}}
+                    {{--                                            </tr>--}}
+                    {{--                                        @endforeach--}}
+                    {{--                                        </tbody>--}}
+                    {{--                                    </table>--}}
+                    {{--                                </div>--}}
+                    {{--                            </div>--}}
+
+
+
+                </div>
+                <div class="col-md-6">
                     <div class="card ">
                         <div class="card-header ">
                             <h4 class="card-title">Ingresos</h4>
@@ -113,37 +207,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card  card-tasks">
-                        <a href="/cobros/index">
-                            <div class="card-header ">
-                                <h4 class="card-title">Cuentas por cobrar: {{$dashboard->fecha}}</h4>
-                            </div>
-                            <div class="card-body ">
 
-                                <div class="table-full-width">
-                                    <table class="table">
-                                        <tbody>
-                                        @foreach($dashboard->cuentasCobrar as $cuentas)
-                                            <tr>
-                                                <td>Prestamo {{$cuentas->prestamo_id}} - cuota
-                                                    No.{{$cuentas->num_cuota}} $ {{$cuentas->valor_cuota}}</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task"
-                                                            class="btn btn-info btn-simple btn-link">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </a>
-
-                    </div>
-                </div>
                 <div class="cold-block d-sm-block d-md-none col-md-12">
 
                                             <a href="/logout" class="btn btn-danger btn-lg btn-block text-white" role="button">
